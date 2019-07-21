@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dns on Joe Miller</title>
+    <link>http://joemiller.me/categories/dns/</link>
+    <description>Recent content in dns on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 Dec 2010 19:53:20 -0800</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/categories/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>dns_compare.py - testing DNS servers</title>
+      <link>http://joemiller.me/2010/12/22/dns_compare-py-testing-dns-servers/</link>
+      <pubDate>Wed, 22 Dec 2010 19:53:20 -0800</pubDate>
+      
+      <guid>http://joemiller.me/2010/12/22/dns_compare-py-testing-dns-servers/</guid>
+      <description>Sometimes it might be nice to be able to test a DNS server&amp;rsquo;s output, such as with a continuous monitoring system, or as a validation tool when migrating to a different DNS server (or service.)
+$ dns_compare.py -z example.com --file example.com.zone --server 10.1.1.1 ....X...X..done Results: Matches: 9 Mis-matches: 2  To see more examples or download the code, goto: https://github.com/joemiller/dns_compare</description>
+    </item>
+    
+  </channel>
+</rss>

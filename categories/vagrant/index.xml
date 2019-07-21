@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vagrant on Joe Miller</title>
+    <link>http://joemiller.me/categories/vagrant/</link>
+    <description>Recent content in vagrant on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Apr 2012 08:15:40 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/categories/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Speeding up Vagrant with parallel provisioning</title>
+      <link>http://joemiller.me/2012/04/26/speeding-up-vagrant-with-parallel-provisioning/</link>
+      <pubDate>Thu, 26 Apr 2012 08:15:40 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2012/04/26/speeding-up-vagrant-with-parallel-provisioning/</guid>
+      <description>&lt;p&gt;Simple hack for speeding up vagrant provisions.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

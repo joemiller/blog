@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mcollective on Joe Miller</title>
+    <link>http://joemiller.me/tags/mcollective/</link>
+    <description>Recent content in mcollective on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Sep 2010 14:33:59 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/tags/mcollective/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>shellcmd-agent - Execute any shell command in parallel on multiple machines with mcollective</title>
+      <link>http://joemiller.me/2010/09/27/shellcmd-agent-execute-any-shell-command-in-parallel-on-multiple-machines-with-mcollective/</link>
+      <pubDate>Mon, 27 Sep 2010 14:33:59 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2010/09/27/shellcmd-agent-execute-any-shell-command-in-parallel-on-multiple-machines-with-mcollective/</guid>
+      <description>&lt;p&gt;Use mc-shellcmd to run any command on the nodes in your collective, eg:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

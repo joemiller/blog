@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kanban on Joe Miller</title>
+    <link>http://joemiller.me/categories/kanban/</link>
+    <description>Recent content in kanban on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Apr 2011 21:10:45 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/categories/kanban/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kanbanops - new mailing list</title>
+      <link>http://joemiller.me/2011/04/24/kanbanops-new-mailing-list/</link>
+      <pubDate>Sun, 24 Apr 2011 21:10:45 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2011/04/24/kanbanops-new-mailing-list/</guid>
+      <description>I am a fan of using Kanban boards to organize and visualize the work coming into an infrastructure team, but most of the Kanban resources on the internet are geared towards software development teams.
+Recently, a new mailing list was started for the sole purpose of sharing Kanban experiences in operations teams. The list is appropriately named kanbanops and you can sign up, browse the archives, etc, over at yahoo groups:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Getting started with the Sensu monitoring framework // Joe Miller</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Joe Miller" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://joemiller.me/css/main.min.ca1c5a29e06d10e8d8a238b0807c8594a9a6a5697064715b007b4425e9baaca1.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting started with the Sensu monitoring framework"/>
+<meta name="twitter:description" content="
+(5/15/2012) NOTE: This guide has been superseded by the official &lsquo; Install Guide&rsquo; doc on the Sensu wiki. The new process utilizes the simpler Omnibus-style Sensu packages and covers installation on Debian/Ubuntu platforms as well. Please use this guide instead of the instructions below.
+"/>
+
+    <meta property="og:title" content="Getting started with the Sensu monitoring framework" />
+<meta property="og:description" content="
+(5/15/2012) NOTE: This guide has been superseded by the official &lsquo; Install Guide&rsquo; doc on the Sensu wiki. The new process utilizes the simpler Omnibus-style Sensu packages and covers installation on Debian/Ubuntu platforms as well. Please use this guide instead of the instructions below.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://joemiller.me/2012/01/19/getting-started-with-the-sensu-monitoring-framework/" />
+<meta property="article:published_time" content="2012-01-19T20:18:25-08:00"/>
+<meta property="article:modified_time" content="2012-01-19T20:18:25-08:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://joemiller.me"><img class="app-header-avatar" src="/avatar.jpg" alt="Joe Miller" /></a>
+      <h1>Joe Miller</h1>
+      <p>Infrastructure Ops/Engineering. Continuously DevOping at Webscale</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/miller_joe"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://keybase.io/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-key">
+  <title>key</title>
+  <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Getting started with the Sensu monitoring framework</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 19, 2012
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          14 min read
+        </div></div>
+    </header>
+    <nav id="toc">
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#what-is-sensu">What is Sensu?</a></li>
+<li><a href="#components">Components</a>
+<ul>
+<li><a href="#sensu-server">sensu-server</a></li>
+<li><a href="#sensu-client">sensu-client</a></li>
+<li><a href="#sensu-api">sensu-api</a></li>
+<li><a href="#sensu-dashboard">sensu-dashboard</a></li>
+</ul></li>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#install-a-sensu-server-node">Install a Sensu server node</a>
+<ul>
+<li><a href="#install-rabbitmq">Install rabbitmq</a></li>
+<li><a href="#install-redis">Install redis</a></li>
+<li><a href="#install-ruby-1-8-7">Install ruby 1.8.7</a></li>
+<li><a href="#install-sensu-components">Install Sensu components.</a></li>
+</ul></li>
+<li><a href="#installing-a-sensu-client-node">Installing a sensu client node</a>
+<ul>
+<li><a href="#install-ruby-1-8-7-1">Install ruby 1.8.7</a></li>
+<li><a href="#install-sensu-client">Install sensu-client</a></li>
+</ul></li>
+<li><a href="#add-a-check">Add a check</a></li>
+<li><a href="#add-a-handler">Add a handler</a></li>
+</ul></li>
+</ul>
+</nav>
+    </nav>
+    <div class="post-content">
+      <blockquote>
+<p>(5/15/2012) NOTE: This guide has been superseded by the official &lsquo; <a href="https://github.com/sensu/sensu/wiki/Install-Guide" title="Install Guide">Install Guide</a>&rsquo; doc on the Sensu wiki. The new process utilizes the simpler Omnibus-style Sensu packages and covers installation on Debian/Ubuntu platforms as well. Please use this guide instead of the instructions below.</p>
+</blockquote>
+
+<p>I&rsquo;m excited about <a href="http://www.sonian.com/cloud-tools/cloud-monitoring-sensu/">Sensu</a>, a new open source monitoring framework, and I&rsquo;d like to help others get started with it as well. So, after observing the frequent questions from new visitors to #sensu on Freenode I thought perhaps the best way to do that is to write a blog article to help folks get started. If you still have questions after reading this, feel free to come by #sensu on Freenode.</p>
+
+<p>In this article I will provide a brief overview of Sensu with some background, walk through a client and server install, and then I will show you how to add a check and a handler. This should lay the groundwork for future articles with more examples on how to get the most value out of Sensu in your infrastructure.</p>
+
+<p>Before we start, I owe a huge thanks to <a href="http://twitter.com/jeremy_carroll">@jeremy_carroll</a> for the many hours of work he put into building RPM&rsquo;s for Sensu. His work on packaging will undoubtedly save many folks quite a bit of time.</p>
+
+<h2 id="what-is-sensu">What is Sensu?</h2>
+
+<p>Sensu is the creation of <a href="http://twitter.com/portertech">@portertech</a> and his colleagues at <a href="http://sonian.com">sonian.com</a>. They have graciously open-sourced the project and made it available to all of us searching for a modern monitoring platform (or anyone searching for an alternative to Nagios.)</p>
+
+<p>Sensu is often described as the &ldquo;monitoring router&rdquo;. Put another way, Sensu connects the output from &ldquo;check&rdquo; scripts run across many nodes with &ldquo;handler&rdquo; scripts run on Sensu servers. Messages are passed via RabbitMQ. Checks are used, for example, to determine if Apache is up or down. Checks can also be used to collect metrics such as MySQL statistics. The output of checks is routed to one or more handlers. Handlers determine what to do with the results of checks. Handlers currently exist for sending alerts to Pagerduty, IRC, Twitter, etc. Handlers can also feed metrics into Graphite, Librato, etc. Writing checks and handlers is quite simple and can be done in any language.</p>
+
+<p>Key details:</p>
+
+<ul>
+<li>Ruby 1.8.7+ (EventMachine, Sinatra, AMQP), RabbitMQ, Redis</li>
+<li>Excellent test coverage with continuous integration ( <a href="http://travis-ci.org/#!/sonian/sensu">travis-ci</a>)</li>
+<li>Messaging oriented architecture. Messages are JSON objects.</li>
+<li>Ability to re-use existing Nagios plugins</li>
+<li>Plugins and handlers (think notifications) can be written in any language</li>
+<li>Supports sending metrics into various backends (Graphite, Librato, etc)</li>
+<li>Designed with modern configuration management systems such as Chef or Puppet in mind</li>
+<li>Designed for cloud environments</li>
+<li>Lightweight, less than 1200 lines of code</li>
+</ul>
+
+<h2 id="components">Components</h2>
+
+<p>Sensu is made up of several small components. I won&rsquo;t go into too much detail about each of them here, as their purpose will become obvious when we get started, so here a few short descriptions:</p>
+
+<h3 id="sensu-server">sensu-server</h3>
+
+<p>The server initiates checks on clients, receives the output of the checks feeds them to handlers. (As of version 0.9.2, clients can also execute checks that the server doesn&rsquo;t know about and the server will still process their results, more on these &lsquo;standalone checks&rsquo; in a future article.)</p>
+
+<p>Sensu-server relies on a Redis instance to keep persistent data. It also relies heavily (as do most sensu components) on access to rabbitmq for passing data between itself and sensu-client nodes.</p>
+
+<h3 id="sensu-client">sensu-client</h3>
+
+<p>Run this on all of your systems that you want to monitor. Sensu-client will execute checks scripts (think <code>check_http</code>, <code>check_load</code>, etc) and return the results from these checks to sensu-server via rabbitmq.</p>
+
+<h3 id="sensu-api">sensu-api</h3>
+
+<p>A REST API that provides access to various pieces of data maintained on the sensu-server in Redis. You will typically run this on the same server as your sensu-server or Redis instance. It is mostly used by internal sensu components at this time.</p>
+
+<h3 id="sensu-dashboard">sensu-dashboard</h3>
+
+<p>Web dashboard providing an overview of the current state of your Sensu infrastructure and the ability to perform actions, such as temporarily silencing alerts.</p>
+
+<h2 id="installing">Installing</h2>
+
+<p>As you start to explore Sensu you will find that it was built from the start to be used in conjunction with a CM tool such as Chef or Puppet. However, for the purposes of this article I will walk through a simple manual install.</p>
+
+<p>This article covers installation of Sensu via RPM on CentOS-5 and CentOS-6. Debian/ubuntu and derivatives are not covered in this guide, but many of the same steps will apply. At this time there are no .deb packages for the Sensu components so you will have to install Sensu from gem (ie: <code>gem install sensu sensu-dashboard</code>). Hopefully soon we will have native .deb packages for the Sensu components.</p>
+
+<p>One thing to note when installing from gem: you may get an error when starting sensu-server or sensu-client if you do not have a &ldquo;client&rdquo; section defined in your config and if you don&rsquo;t have at least one &ldquo;check&rdquo;.</p>
+
+<p>You will probably want to use Sensu with Chef or Puppet soon after you get bootstrapped (of course you&rsquo;re already using a modern CM tool in your infrastructure anyway, right?) There are good <a href="https://github.com/sonian/sensu/tree/master/dist/chef">Chef</a> and <a href="https://github.com/sonian/sensu/tree/master/dist/puppet">Puppet</a> recipes in the github repos that can help you get going fairly quickly. There are also a few community members working on improving these pieces so should get even better over time.</p>
+
+<p>Additionally, the original dev platform for Sensu was Ubuntu but work has been done to help make it a little more CentOS/RHEL-friendly. I&rsquo;m going to use CentOS 5 and 6 in this article just because I&rsquo;m more familiar with this platform than the debian/ubuntu family. In any case, it shouldn&rsquo;t matter too much because the purpose of this article is to show you Sensu.</p>
+
+<p>We will use 2 nodes, one will be our server and the other will be a simple client, with the following bits on each:</p>
+
+<p>Server:</p>
+
+<ul>
+<li>rabbitmq</li>
+<li>redis</li>
+<li>sensu-server / sensu-client / sensu-api / sensu-dashboard</li>
+</ul>
+
+<p>Client:</p>
+
+<ul>
+<li>sensu-client</li>
+</ul>
+
+<h2 id="install-a-sensu-server-node">Install a Sensu server node</h2>
+
+<h3 id="install-rabbitmq">Install rabbitmq</h3>
+
+<p>We will base our approach on the rabbit install guide from here: <a href="http://www.rabbitmq.com/install-rpm.html">http://www.rabbitmq.com/install-rpm.html</a></p>
+
+<p>(CentOS 5 only) We need to install both the EPEL-5 and epel-erlang yum repos. The EPEL-5 yum repo contains the older R12B version of Erlang which would work fine with rabbit except we wouldn&rsquo;t have access to SSL nor the web management plugins. Thus, we&rsquo;ll be installing a newer Erlang from the <code>epel-erlang</code> repo which provides R14B for cent5.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
+sudo wget -O /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo
+</code></pre></div>
+
+
+<p>(CentOS 6 only) Install the EPEL-6 yum repo which contains Erlang R14B:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm
+</code></pre></div>
+
+
+<p>Install Erlang:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo yum install erlang
+</code></pre></div>
+
+
+<p>Install RabbitMQ:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v2.7.1/rabbitmq-server-2.7.1-1.noarch.rpm
+</code></pre></div>
+
+
+<p>We need to make some SSL certs for our rabbitmq server and the sensu clients. I put a simple script up on <a href="https://github.com/joemiller/joemiller.me-intro-to-sensu">github</a> to help with this. You&rsquo;ll want to change a few things in the <code>openssl.cnf</code> to for your organization if you use this in production. The script will generate a few files that we&rsquo;ll need throughout the guide, so keep them nearby.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>git clone git://github.com/joemiller/joemiller.me-intro-to-sensu.git
+<span style="color: #f8f8f2">cd</span> joemiller.me-intro-to-sensu/
+./ssl_certs.sh clean
+./ssl_certs.sh generate
+</code></pre></div>
+
+
+<p>Configure RabbitMQ to use these SSL certs</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>mkdir /etc/rabbitmq/ssl
+cp server_key.pem /etc/rabbitmq/ssl/
+cp server_cert.pem /etc/rabbitmq/ssl/
+cp testca/cacert.pem /etc/rabbitmq/ssl/
+</code></pre></div>
+
+
+<p>Create <code>/etc/rabbitmq/rabbitmq.config</code>:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-erlang" data-lang="erlang"><span></span><span style="color: #f8f8f2">[</span>
+  <span style="color: #f8f8f2">{rabbit,</span> <span style="color: #f8f8f2">[</span>
+    <span style="color: #f8f8f2">{ssl_listeners,</span> <span style="color: #f8f8f2">[</span><span style="color: #ae81ff">5671</span><span style="color: #f8f8f2">]},</span>
+    <span style="color: #f8f8f2">{ssl_options,</span> <span style="color: #f8f8f2">[{cacertfile,</span><span style="color: #e6db74">&quot;/etc/rabbitmq/ssl/cacert.pem&quot;</span><span style="color: #f8f8f2">},</span>
+                   <span style="color: #f8f8f2">{certfile,</span><span style="color: #e6db74">&quot;/etc/rabbitmq/ssl/server_cert.pem&quot;</span><span style="color: #f8f8f2">},</span>
+                   <span style="color: #f8f8f2">{keyfile,</span><span style="color: #e6db74">&quot;/etc/rabbitmq/ssl/server_key.pem&quot;</span><span style="color: #f8f8f2">},</span>
+                   <span style="color: #f8f8f2">{verify,verify_peer},</span>
+                   <span style="color: #f8f8f2">{fail_if_no_peer_cert,true}]}</span>
+  <span style="color: #f8f8f2">]}</span>
+<span style="color: #f8f8f2">].</span>
+</code></pre></div>
+
+
+<p>Install the RabbitMQ webUI management console:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>rabbitmq-plugins <span style="color: #f8f8f2">enable</span> rabbitmq_management
+</code></pre></div>
+
+
+<p>Set RabbitMQ to start on boot and start it up immediately:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo /sbin/chkconfig rabbitmq-server on
+sudo /etc/init.d/rabbitmq-server start
+</code></pre></div>
+
+
+<p>Verify operation with the RabbitMQ Web UI: Username is &ldquo;guest&rdquo;, password is &ldquo;guest&rdquo; - <code>http://:55672</code>. Protocol amqp should be bound to port 5672 and amqp/ssl on port 5671.</p>
+
+<p>Finally, let&rsquo;s create a <code>/sensu</code> vhost and a <code>sensu</code> user/password on our rabbit:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>rabbitmqctl add_vhost /sensu
+rabbitmqctl add_user sensu mypass
+rabbitmqctl set_permissions -p /sensu sensu <span style="color: #e6db74">&quot;.*&quot;</span> <span style="color: #e6db74">&quot;.*&quot;</span> <span style="color: #e6db74">&quot;.*&quot;</span>
+</code></pre></div>
+
+
+<h3 id="install-redis">Install redis</h3>
+
+<p>At this point we already have the EPEL repo installed on our server so we will install EPEL&rsquo;s version of Redis. For Cent5 this will be a fairly old redis v2.0, and for Cent6 it will be v2.2. Both should work fine with Sensu.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo yum install redis
+sudo /sbin/chkconfig redis on
+sudo /etc/init.d/redis start
+</code></pre></div>
+
+
+<h3 id="install-ruby-1-8-7">Install ruby 1.8.7</h3>
+
+<p>(CentOS 5 only) Sensu needs ruby 1.8.7+ but CentOS-5 ships with older Ruby 1.8.5. We will use the ruby 1.8.7 rpm&rsquo;s from Opscode&rsquo;s Chef. See <a href="http://wiki.opscode.com/display/chef/Installing+Chef+Client+on+CentOS#InstallingChefClientonCentOS-InstallRuby">this page on the Chef wiki</a> for additional details.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo wget -O /etc/yum.repos.d/aegisco.repo http://rpm.aegisco.com/aegisco/el5/aegisco.repo
+</code></pre></div>
+
+
+<p>(CentOS 6) CentOS 6 ships with ruby 1.8.7 so we don&rsquo;t need any external repos.</p>
+
+<p>Install Ruby packages;</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo yum install ruby ruby-ri ruby-rdoc ruby-shadow rubygems curl openssl-devel
+</code></pre></div>
+
+
+<h3 id="install-sensu-components">Install Sensu components.</h3>
+
+<p>Now we are ready to install Sensu. We will install two rpms: <code>rubygem-sensu</code> and <code>rubygem-sensu-dashboard</code>. This will install four components: sensu-server, sensu-client, sensu-api, sensu-dashboard. Sensu servers use all of these and clients only use sensu-client.</p>
+
+<p>We are going to use <a href="http://twitter.com/jeremy_carroll">@jeremy_carroll</a>&rsquo;s recently created yum repo to install Sensu via rpm. This repo contains sensu rpm&rsquo;s for both CentOS 5 and 6. It&rsquo;s awesome that Jeremy has taken the time to set this up and I hope we can use this as a basis for automating the building of rpms and debs for all releases of Sensu. Since this repo was setup pretty much as this blog was being written, it&rsquo;s possible that this repo will move to a different location in the future.</p>
+
+<p>(CentOS 5 only)</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo rpm -Uvh http://yum.carrollops.com/el/5/sensu-release-1.noarch.rpm
+</code></pre></div>
+
+
+<p>(CentOS 6 only)</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo rpm -Uvh http://yum.carrollops.com/el/6/sensu-release-1.noarch.rpm
+</code></pre></div>
+
+
+<p>We need to ignore the rubygem rpm&rsquo;s that come from EPEL because they will conflict with the sensu rpm&rsquo;s. Edit your <code>/etc/yum.repos.d/epel.repo</code> file and add the following line to the [epel] section.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #f8f8f2">exclude</span><span style="color: #f92672">=</span>rubygem-rack,rubygem-sinatra
+</code></pre></div>
+
+
+<p>Install and enable sensu service components:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo yum install rubygem-sensu rubygem-sensu-dashboard
+sudo chkconfig sensu-server on
+sudo chkconfig sensu-api on
+sudo chkconfig sensu-client on
+sudo chkconfig sensu-dashboard on
+</code></pre></div>
+
+
+<p>Copy the SSL client key + cert that we created earlier into <code>/etc/sensu/ssl</code></p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>cp client_key.pem client_cert.pem /etc/sensu/ssl/
+</code></pre></div>
+
+
+<p>Next we need to configure sensu by editing <code>/etc/sensu/config.json</code>. For now we will create just enough config to start sensu. Later we will add checks and handlers. Note (for later use) that Sensu will also read json config snippets out of the <code>/etc/sensu/conf.d</code> directory so you can piece together a config easily using your CM tool.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;rabbitmq&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;ssl&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;private_key_file&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/etc/sensu/ssl/client_key.pem&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;cert_chain_file&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/etc/sensu/ssl/client_cert.pem&quot;</span>
+    <span style="color: #f8f8f2">},</span>
+    <span style="color: #f92672">&quot;port&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">5671</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;host&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;localhost&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;user&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;sensu&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;password&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;mypass&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;vhost&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/sensu&quot;</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f92672">&quot;redis&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;host&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;localhost&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;port&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">6379</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f92672">&quot;api&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;host&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;localhost&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;port&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">4567</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f92672">&quot;dashboard&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;host&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;localhost&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;port&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">8080</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;user&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;admin&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;password&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;secret&quot;</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+
+
+<p>Configure <code>/etc/sensu/conf.d/client.json</code> for the current node:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;client&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;sensu-server.dom.tld&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;address&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;10.0.0.1&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;subscriptions&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;test&quot;</span><span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+
+
+<p>(CentOS 5 x86_64 only) With the current set of rpm&rsquo;s we need to add a path to the GEM_PATH in order to find a couple of the rubygems we installed. Run the following:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">&quot;export GEM_PATH=\$GEM_PATH:/usr/lib64/ruby/gems/1.8&quot;</span> &gt; /etc/profile.d/gem_path.sh
+. /etc/profile.d/gem_path.sh
+</code></pre></div>
+
+
+<p>Now let&rsquo;s try to start the Sensu components:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo /etc/init.d/sensu-server start
+sudo /etc/init.d/sensu-api start
+sudo /etc/init.d/sensu-client start    
+sudo /etc/init.d/sensu-dashboard start
+</code></pre></div>
+
+
+<p>If all goes well, the 4 processes mentioned above will be running and the dashboard will be accessible on <code>http://:8080</code>. Log files are available in <code>/var/log/sensu</code> in case anything is wrong.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sensu <span style="color: #ae81ff">14249</span> <span style="color: #ae81ff">0</span>.0 <span style="color: #ae81ff">3</span>.4 <span style="color: #ae81ff">92924</span> <span style="color: #ae81ff">17648</span> ? S <span style="color: #ae81ff">02</span>:56 <span style="color: #ae81ff">0</span>:00 ruby /usr/bin/sensu-server ...
+sensu <span style="color: #ae81ff">14404</span> <span style="color: #ae81ff">0</span>.0 <span style="color: #ae81ff">4</span>.1 <span style="color: #ae81ff">102172</span> <span style="color: #ae81ff">20884</span> ? S <span style="color: #ae81ff">03</span>:05 <span style="color: #ae81ff">0</span>:00 ruby /usr/bin/sensu-api ...
+sensu <span style="color: #ae81ff">14425</span> <span style="color: #ae81ff">0</span>.0 <span style="color: #ae81ff">3</span>.7 <span style="color: #ae81ff">104860</span> <span style="color: #ae81ff">19292</span> ? Sl <span style="color: #ae81ff">03</span>:06 <span style="color: #ae81ff">0</span>:00 ruby /usr/bin/sensu-client ...
+sensu <span style="color: #ae81ff">14553</span> <span style="color: #ae81ff">0</span>.4 <span style="color: #ae81ff">7</span>.0 <span style="color: #ae81ff">140544</span> <span style="color: #ae81ff">35932</span> ? Sl <span style="color: #ae81ff">03</span>:07 <span style="color: #ae81ff">0</span>:00 ruby /usr/bin/sensu-dashboard ...
+</code></pre></div>
+
+
+<p>If you see an openssl error like the one below on CentOS-5, it&rsquo;s likely because you&rsquo;re on a x86_64 box but some ruby-libs or ruby-devel 1.8.5 rpm&rsquo;s from the base repo were accidentally installed, remove them.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>Starting sensu-client: /usr/lib/ruby/1.8/openssl/cipher.rb:22: Cipher is not a module <span style="color: #f92672">(</span>TypeError<span style="color: #f92672">)</span>
+    from /usr/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:36:in <span style="color: #e6db74">`</span>gem_original_require<span style="color: #960050; background-color: #1e0010">&#39;</span>
+</code></pre></div>
+
+
+<h2 id="installing-a-sensu-client-node">Installing a sensu client node</h2>
+
+<p>Installing Sensu on a client node is similar to installing the server. We will need to install ruby, the Sensu rpm, and then configure Sensu. There are only a few small differences which are detailed below.</p>
+
+<h3 id="install-ruby-1-8-7-1">Install ruby 1.8.7</h3>
+
+<p>Follow the same steps from the <code>Install ruby 1.8.7</code> section we used to build our server.</p>
+
+<h3 id="install-sensu-client">Install sensu-client</h3>
+
+<p>Follow the steps from <code>Install Sensu components</code> section we used to build our server, with the following differences:</p>
+
+<ul>
+<li>Only install <code>rubygem-sensu</code> and skip <code>rubygem-sensu-dashboard</code></li>
+<li>You will only need the <code>rabbitmq</code> section in <code>/etc/sensu/config.json</code> file. Make sure you point it to your rabbit server.</li>
+<li>Only enable and start the <code>sensu-client</code> service, ie: <code>chkconfig sensu-client on</code> and <code>/etc/init.d/sensu-client start</code>.</li>
+</ul>
+
+<p>The client will log to <code>/var/log/sensu/sensu-client.log</code>.</p>
+
+<h2 id="add-a-check">Add a check</h2>
+
+<p>Now that we&rsquo;ve installed a Sensu server and a client, let&rsquo;s create a simple check so we can begin to see how the pieces fit together. We&rsquo;re going to write a check to determine if <code>crond</code> is running. We&rsquo;ll be using the <code>check-procs.rb</code> script from the <a href="https://github.com/sonian/sensu-community-plugins">sensu-community-plugins</a> repo.</p>
+
+<p>Most of the plugins in the <a href="https://github.com/sonian/sensu-community-plugins">sensu-community-plugins</a> repo rely on the helper classes from the sensu-plugins gem, so let&rsquo;s install that first. You may need to install gcc in order to build the json gem dependency. Note that we are installing this from a gem because there is not an rpm available yet.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo gem install sensu-plugin --no-rdoc --no-ri
+</code></pre></div>
+
+
+<p>Next, we&rsquo;re going to grab the <code>check-procs.rb</code> script directly from github and install it into <code>/etc/sensu/plugins</code>. You don&rsquo;t have to install checks into this directory, but it&rsquo;s convenient.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>wget -O /etc/sensu/plugins/check-procs.rb https://raw.github.com/sonian/sensu-community-plugins/master/plugins/processes/check-procs.rb
+chmod <span style="color: #ae81ff">755</span> /etc/sensu/plugins/check-procs.rb
+</code></pre></div>
+
+
+<p>Let&rsquo;s create a new json file to hold our check definition in <code>/etc/sensu/conf.d/check_cron.json</code>. Put this file on both the Sensu server and client.</p>
+
+<p>(NOTE: as of sensu 0.9.2 &lsquo;standalone&rsquo; checks were added which only need to be configured on the client-side. We will cover standalone checks in future articles.)</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;checks&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;cron_check&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;handler&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;default&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;command&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/etc/sensu/plugins/check-procs.rb -p crond -C 1 &quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;interval&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;subscribers&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;webservers&quot;</span><span style="color: #f8f8f2">]</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+
+
+<p>Next, we need to tell our client node to listen to subscribe to the <code>webservers</code> queue. The Sensu server will publish a request every 60 seconds on the <code>webservers</code> queue and any client registered to this queue will execute checks that have been registered to this queue. Edit the <code>/etc/sensu/conf.d/client.json</code> file on the client:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;client&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;sensu-client.domain.tld&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;address&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;127.0.0.1&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;subscriptions&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;test&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;webservers&quot;</span><span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+
+
+<p>Finally, restart sensu on the client and server nodes.</p>
+
+<p>After a few minutes we should see the following in the <code>/var/log/sensu/sensu-client.log</code> on the client:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-18T21:17:07.561000 <span style="color: #75715e">#12984] INFO -- : [subscribe] -- received check request -- cron_check {&quot;message&quot;:&quot;[subscribe] -- received check request -- cron_check&quot;,&quot;level&quot;:&quot;info&quot;,&quot;timestamp&quot;:&quot;2012-01-18T21:17:07. %6N-0700&quot;}</span>
+</code></pre></div>
+
+
+<p>And on the server we should see the following in <code>/var/log/sensu/sensu-server.log</code>:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-18T21:18:07.559666 <span style="color: #75715e">#30970] INFO -- : [publisher] -- publishing check request -- cron_check -- webservers {&quot;message&quot;:&quot;[publisher] -- publishing check request -- cron_check -- webservers&quot;,&quot;level&quot;:&quot;info&quot;,&quot;timestamp&quot;:&quot;2012-01-18T21:18:07. %6N-0700&quot;}</span>
+I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-18T21:25:07.745012 <span style="color: #75715e">#30970] INFO -- : [result] -- received result -- sensu-client.domain.tld -- cron_check -- 0 -- CheckProcs OK: Found 1 matching processes; cmd /crond/</span>
+</code></pre></div>
+
+
+<p>Next, let&rsquo;s see if we can raise an alert.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>/etc/init.d/crond stop
+</code></pre></div>
+
+
+<p>After about a minute we should see an alert on the sensu-dashboard: <code>http://:8080</code></p>
+
+<p><a href="/images/dashboard-screenshot.png"><img src="/images/dashboard-screenshot.png" alt="" title="sensu-dashboard" /></a></p>
+
+<h2 id="add-a-handler">Add a handler</h2>
+
+<p>Now that we have created our first check we are ready to hook it up to a handler. Out of the box Sensu ships with a &lsquo;default&rsquo; handler which does nothing more than parse the JSON its fed via STDIN and spits back to STDOUT.</p>
+
+<p>There is a growing list of handlers available in the <a href="https://github.com/sonian/sensu-community-plugins/tree/master/handlers">sensu-community-plugins</a> repo, including Pagerduty, IRC, Campfire, etc.</p>
+
+<p>Let&rsquo;s create a simple handler that simply sends the raw check output to ourselves via email.</p>
+
+<p>The most common handler type is &ldquo;pipe&rdquo; which tells Sensu to shell out and run the specified command. We&rsquo;ll cover more handler types in the future. On the server nodes, we will define our &lsquo;email&rsquo; handler in <code>/etc/sensu/conf.d/handler_email.json</code>.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;handlers&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;email&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;command&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;mail -s &#39;sensu alert&#39; your@address&quot;</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+
+
+<p>On the sensu-server and sensu-client nodes we&rsquo;ll also need to update our check definition and connect it to the new handler, edit the <code>/etc/sensu/conf.d/check_cron.json</code> files and modify the &ldquo;handlers&rdquo; attribute:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;checks&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;cron_check&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;handlers&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;default&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;email&quot;</span><span style="color: #f8f8f2">],</span>
+ <span style="color: #960050; background-color: #1e0010">...</span>
+</code></pre></div>
+
+
+<p>Restart sensu-client and sensu-server on the nodes and then stop the crond daemon again. In a few minutes we should get an email from sensu with the subject &ldquo;sensu alert&rdquo; and a bag full of JSON data.</p>
+
+<p>This isn&rsquo;t the most useful handler but it illustrates the concepts of checks and handlers and how they work together. At this point we now have a working sensu-client and sensu-server to start experimenting further. In the future we&rsquo;ll cover more examples of checks, handlers, metrics, etc.</p>
+
+<p>If you have further questions please visit #sensu on IRC Freenode.</p>
+
+<p><strong>Update (3/2/2012):</strong> Olivier Le Cam ( <a href="https://twitter.com/#!/olecam" title="@olecam">@olecam</a>) <a href="http://olecam.online.fr/sensu-debian.txt" title="sensu-debian">posted</a> some Debian-specific instructions that accompany this process which also include instructions on building .deb packages for Sensu.</p>
+
+<p><strong>More Sensu articles:</strong> <a href="http://joemiller.me/category/sensu/" title="sensu">sensu</a></p>
+    </div>
+    <div class="post-footer">
+      
+      This post was published <strong>2738</strong> days ago, content in the post may be inaccurate, even wrong now.
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>puppet on Joe Miller</title>
+    <link>http://joemiller.me/categories/puppet/</link>
+    <description>Recent content in puppet on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 05 Nov 2011 19:09:15 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/categories/puppet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Correlating Puppet changes to events in your infrastructure using graphite</title>
+      <link>http://joemiller.me/2011/11/05/correlating-puppet-changes-to-events-in-your-infrastructure/</link>
+      <pubDate>Sat, 05 Nov 2011 19:09:15 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2011/11/05/correlating-puppet-changes-to-events-in-your-infrastructure/</guid>
+      <description>&lt;p&gt;Sometimes it is pretty obvious when Puppet changes something in your infrastructure and bad things happen in a big dramatic way. Other times it&amp;rsquo;s not so obvious. It can be invaluable to be able to correlate changes made by Puppet to other events happening in your infrastructure.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

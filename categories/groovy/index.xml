@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>groovy on Joe Miller</title>
+    <link>http://joemiller.me/categories/groovy/</link>
+    <description>Recent content in groovy on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Jun 2011 16:50:13 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/categories/groovy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>groovy-statsdclient</title>
+      <link>http://joemiller.me/2011/06/29/groovy-statsdclient/</link>
+      <pubDate>Wed, 29 Jun 2011 16:50:13 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2011/06/29/groovy-statsdclient/</guid>
+      <description>&lt;p&gt;In an attempt to learn some Groovy and Gradle I wrote an implementation of a Statsd client in groovy.  It&amp;rsquo;s similar to other statsd clients in other languages and supports the typical increment(), decrement(), and timing() methods.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

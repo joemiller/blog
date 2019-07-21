@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>gitosis-ng – Simple, self-service git repositories // Joe Miller</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Joe Miller" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://joemiller.me/css/main.min.ca1c5a29e06d10e8d8a238b0807c8594a9a6a5697064715b007b4425e9baaca1.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="gitosis-ng – Simple, self-service git repositories"/>
+<meta name="twitter:description" content="Gitosis-ng &ndash; it&rsquo;s gitosis with some new features to help users work with the git server. Mainly implemented with commands sent via ssh, ex:"/>
+
+    <meta property="og:title" content="gitosis-ng – Simple, self-service git repositories" />
+<meta property="og:description" content="Gitosis-ng &ndash; it&rsquo;s gitosis with some new features to help users work with the git server. Mainly implemented with commands sent via ssh, ex:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://joemiller.me/2010/09/27/gitosis-ng-%e2%80%93-simple-self-service-git-repositories/" />
+<meta property="article:published_time" content="2010-09-27T15:46:37-07:00"/>
+<meta property="article:modified_time" content="2010-09-27T15:46:37-07:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://joemiller.me"><img class="app-header-avatar" src="/avatar.jpg" alt="Joe Miller" /></a>
+      <h1>Joe Miller</h1>
+      <p>Infrastructure Ops/Engineering. Continuously DevOping at Webscale</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/miller_joe"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://keybase.io/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-key">
+  <title>key</title>
+  <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">gitosis-ng – Simple, self-service git repositories</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 27, 2010
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="http://joemiller.me/tags/gitosis-ng/">gitosis-ng</a><a class="tag" href="http://joemiller.me/tags/git/">git</a></div></div>
+    </header>
+    <nav id="toc">
+      
+    </nav>
+    <div class="post-content">
+      <p>Gitosis-ng &ndash; it&rsquo;s gitosis with some new features to help users work with the git server. Mainly implemented with commands sent via ssh, ex:</p>
+
+<p>list available commands:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ssh git@git.example.com help
+
+
+    add-repo : Create new repository. Usage: &#39;add-repo repo_name&#39;
+    help : Get list of available commands
+    list : Get detailed list of git repositories
+    list-json : Get detailed list of repositories in JSON format
+    list-short : Get simple list of git repositories
+    list-yaml : Get detailed list of repositories in YAML format
+</code></pre></div>
+
+
+<p>List available repos:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ssh git@git.example.com list
+    Repository : myproject.git
+     Initialized: no
+     Your Access: read/write
+     Owner : jmiller
+     URL :
+     Description:
+
+
+     Repository : otherproject.git
+     Initialized: no
+     Your Access: readonly
+     Owner : bsmith
+     URL :
+     Description:
+</code></pre></div>
+
+
+<p>Create new repo:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ssh git@git.example.com add-repo myproject
+
+
+    Created repository: myproject
+
+
+    Next Steps:
+      mkdir myproject
+      cd myproject
+      git init
+      touch README
+      git add README
+      git commit -a -m &#39;first commit&#39;
+      git remote add origin git@GIT_SERVER_ADDRESS:myproject.git
+      git push origin master
+
+
+    Existing Git repo?
+      cd myproject
+      git remote add origin git@GIT_SERVER_ADDRESS:myproject.git
+      git push origin master
+</code></pre></div>
+
+
+<p>I am a fan <a href="http://github.com" title="github.com">github.com</a> and <a href="http://gitorious.com" title="gitorious.com">gitorious.com</a>, but we needed something internal that would be simpler than gitorious to get up and running.</p>
+
+<p>The next best thing I could find was <a href="http://scie.nti.st/2007/11/14/hosting-git-repositories-the-easy-and-secure-way">gitosis</a> which is very simple and straightforward.</p>
+
+<p>However, gitosis lacked the user-friendly features I liked about github/gitorious. For example, how about a real simple way to list repos?</p>
+
+<p>So, I decided to add &ldquo;self-service&rdquo; features to gitosis and call it gitosis-ng.  I want my users to be able to do all of these tasks on their own:</p>
+
+<ul>
+<li>List available repos</li>
+<li>Create new repos</li>
+<li>Give permissions to other users on repos they control</li>
+<li>Set metadata on repos (eg: URL, owner contact info, description)</li>
+</ul>
+
+<p>So far I have implemented the first 2 features in this list and will be working on the remaining features as time permits.</p>
+
+<p>Eventually I would love to find a way to allow users to self-register with gitosis-ng, but this could be challenging since gitosis-ng works entirely over SSH and relies on users having an SSH key registered with the server before they can execute commands.</p>
+
+<p>gitosis-ng is available on github:   <a href="http://github.com/joemiller/gitosis-ng" title="http://github.com/joemiller/gitosis-ng">http://github.com/joemiller/gitosis-ng</a></p>
+    </div>
+    <div class="post-footer">
+      
+      This post was published <strong>3218</strong> days ago, content in the post may be inaccurate, even wrong now.
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

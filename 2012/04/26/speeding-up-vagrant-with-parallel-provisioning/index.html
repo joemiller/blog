@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Speeding up Vagrant with parallel provisioning // Joe Miller</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Joe Miller" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://joemiller.me/css/main.min.ca1c5a29e06d10e8d8a238b0807c8594a9a6a5697064715b007b4425e9baaca1.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Speeding up Vagrant with parallel provisioning"/>
+<meta name="twitter:description" content="Simple hack for speeding up vagrant provisions."/>
+
+    <meta property="og:title" content="Speeding up Vagrant with parallel provisioning" />
+<meta property="og:description" content="Simple hack for speeding up vagrant provisions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://joemiller.me/2012/04/26/speeding-up-vagrant-with-parallel-provisioning/" />
+<meta property="article:published_time" content="2012-04-26T08:15:40-07:00"/>
+<meta property="article:modified_time" content="2012-04-26T08:15:40-07:00"/>
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://joemiller.me"><img class="app-header-avatar" src="/avatar.jpg" alt="Joe Miller" /></a>
+      <h1>Joe Miller</h1>
+      <p>Infrastructure Ops/Engineering. Continuously DevOping at Webscale</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/miller_joe"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://keybase.io/joemiller"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-key">
+  <title>key</title>
+  <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Speeding up Vagrant with parallel provisioning</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Apr 26, 2012
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div></div>
+    </header>
+    <nav id="toc">
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#future">Future?</a></li>
+<li><a href="#alternatives">Alternatives?</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </nav>
+    <div class="post-content">
+      <p>Simple hack for speeding up vagrant provisions.</p>
+
+<p>Vagrant is an amazing tool. It&rsquo;s quite substantially changed my workflows in a variety of areas. It&rsquo;s a particularly interesting tool for building packages or running tests across multiple OS&rsquo;s or distributions from a single set of scripts.</p>
+
+<p>A recent example of the usefulness of Vagrant is the new packaging and testing work undertaken in the <a href="https://github.com/sensu/sensu">Sensu</a> project. The project set out to build a new set of native OS packages with a goal of making Sensu easy to deploy on a variety of platforms and without a lot of the friction that sometimes accompanies Ruby apps. As part of the packaging effort we needed a simple mechanism to build native packages on the relevant platforms, ie: .deb&rsquo;s on debian and .rpm on redhat/centos.</p>
+
+<p>We ended up using a combination of Vagrant and some homegrown tools such as <a href="https://github.com/joemiller/bunchr">Bunchr</a>.</p>
+
+<p>You can see the work in these 2 repos:</p>
+
+<ul>
+<li><a href="http://github.com/sensu/sensu-build">http://github.com/sensu/sensu-build</a></li>
+<li><a href="http://github.com/joemiller/sensu-tests">http://github.com/joemiller/sensu-tests</a></li>
+</ul>
+
+<p>Both codebases contain a <code>para-vagrant.sh</code> script that is used in place of the normal <code>vagrant up</code> to kick off parallel provisioning tasks. <code>sensu-tests</code> is the more interesting example as it runs a set of rspec tests against Sensu across <em>14</em> VM&rsquo;s and this will likely grow to encompass other OS&rsquo;s in the future. The tests are executed as Vagrant provisioners (a combo of Chef and shell to call rspec).</p>
+
+<p>The simplest way to use multi-VM&rsquo;s with Vagrant is the typical <code>vagrant up</code>. However, this will boot and run the provisioning tasks sequentially on each VM. With 14 VM&rsquo;s to test, this process can take a long time.</p>
+
+<p>Can we speed this up? Yes. In fact we were able to reduce the time taken to run the <code>sensu-build</code> tasks from about 33 minutes to 12 minutes, and reduced <code>sensu-tasks</code> from almost 90 minutes to 15!</p>
+
+<p>Here was the first attempt at a parallelization script:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #75715e">#!/bin/sh</span>
+
+
+<span style="color: #75715e"># concurrency is hard, let&#39;s have a beer</span>
+
+
+<span style="color: #f8f8f2">MAX_PROCS</span><span style="color: #f92672">=</span><span style="color: #ae81ff">4</span>
+
+
+parallel_provision<span style="color: #f92672">()</span> <span style="color: #f92672">{</span>
+    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">read</span> box<span style="color: #f8f8f2">;</span> <span style="color: #66d9ef">do</span>
+        <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">&quot;Provisioning &#39;</span><span style="color: #f8f8f2">$box</span><span style="color: #e6db74">&#39;. Output will be in: </span><span style="color: #f8f8f2">$box</span><span style="color: #e6db74">.out.txt&quot;</span> <span style="color: #ae81ff">1</span>&gt;<span style="color: #f8f8f2">&amp;</span><span style="color: #ae81ff">2</span>
+        <span style="color: #f8f8f2">echo</span> <span style="color: #f8f8f2">$box</span>
+    <span style="color: #66d9ef">done</span> <span style="color: #f8f8f2">|</span> xargs -P <span style="color: #f8f8f2">$MAX_PROCS</span> -I<span style="color: #e6db74">&quot;BOXNAME&quot;</span> <span style="color: #ae81ff">\</span>
+        sh -c <span style="color: #e6db74">&#39;vagrant provision BOXNAME &gt;BOXNAME.out.txt 2&gt;&amp;1 || echo &quot;Error Occurred: BOXNAME&quot;&#39;</span>
+<span style="color: #f92672">}</span>
+
+
+<span style="color: #75715e">## -- main -- ##</span>
+
+
+<span style="color: #75715e"># start boxes sequentially to avoid vbox explosions</span>
+vagrant up --no-provision
+
+
+<span style="color: #75715e"># but run provision tasks in parallel</span>
+cat 
+There are <span style="color: #ae81ff">2</span> steps to the process:
+</code></pre></div>
+
+
+<ul>
+<li></li>
+</ul>
+
+<p>Sequentially boot each VM listed in the Vagrantfile, but without running provisioners (<code>vagrant up --no-provision</code>). The reason we do the bootups sequentially is to avoid potential kernel panics that VirtualBox is prone to do, at least on OSX.</p>
+
+<ul>
+<li></li>
+</ul>
+
+<p>Feed a list of VM&rsquo;s into <code>xargs</code> to execute $MAX_PROCS <code>vagrant provision $BOXNAME</code> processes in parallel. <code>xargs</code> will manage the concurrency for us.</p>
+
+<p>The final script we used with the sensu-tests repo is a little different than the above example, which can be viewed here: <a href="https://github.com/joemiller/sensu-tests/blob/master/para-vagrant.sh">para-vagrant.sh</a>. This script reduced the time it takes to run the full test suite from over 90 minutes to 15 minutes. The differences in this final version of the script:</p>
+
+<ul>
+<li></li>
+</ul>
+
+<p>uses GNU parallel instead of xargs for better handling/grouping of the output from the <code>vagrant provision</code> processes.</p>
+
+<ul>
+<li></li>
+</ul>
+
+<p>reads the list of VM&rsquo;s from a JSON file (the Vagrantfile also uses this JSON file). To add/remove new VM&rsquo;s, you only need to edit one file now.</p>
+
+<h3 id="future">Future?</h3>
+
+<p>It should be possible to make the process go even faster by parallelizing the bootup phase, but I have not tried this yet because I&rsquo;m worried about VirtualBox stability.</p>
+
+<p>Also, I&rsquo;m sure there&rsquo;s a more polished script/utility that can be written to parallelize any multi-VM Vagrantfile.</p>
+
+<h3 id="alternatives">Alternatives?</h3>
+
+<p>As <a href="https://twitter.com/vvuksan">@vvuksan</a> correctly points out, doing such short tasks with Vagrant is probably always going to be a little slow due to the overhead in spinning up VM&rsquo;s, so a possible alternative maybe LXC. There&rsquo;s already a Vagrant-like tool for LXC called <a href="https://github.com/exceedhl/toft">toft</a>. LXC should work fine for workflows that include only various Linux distributions, but won&rsquo;t help if you need to test other OS&rsquo;s like FreeBSD or Solaris.</p>
+    </div>
+    <div class="post-footer">
+      
+      This post was published <strong>2641</strong> days ago, content in the post may be inaccurate, even wrong now.
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

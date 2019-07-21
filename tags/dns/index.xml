@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dns on Joe Miller</title>
+    <link>http://joemiller.me/tags/dns/</link>
+    <description>Recent content in dns on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Jun 2010 17:24:30 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Free IPv4 &#43; IPv6 DNS hosting</title>
+      <link>http://joemiller.me/2010/06/29/free-ipv4-ipv6-dns-hosting/</link>
+      <pubDate>Tue, 29 Jun 2010 17:24:30 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2010/06/29/free-ipv4-ipv6-dns-hosting/</guid>
+      <description>&lt;p&gt;I have been a big fan of &lt;a href=&#34;http://tunnelbroker.net/&#34; title=&#34;tunnelbroker.net&#34;&gt;TunnelBroker.net&lt;/a&gt;&amp;rsquo;s IPv6 tunneling service for a number of years now, but I was pleasantly surprised to discover a new service from TunnelBroker.net (HE - Hurrican Electric) &amp;ndash; &lt;a href=&#34;https://dns.he.net/&#34; title=&#34;free ipv6 dns hosting&#34;&gt;IPv6 DNS hosting&lt;/a&gt;!  Actually it&amp;rsquo;s dual-stack DNS hosting, allowing you to serve DNS requests for your domains to both the IPv4 and IPv6 internet.&lt;/p&gt;
+
+&lt;p&gt;It is currently in &amp;ldquo;open beta&amp;rdquo; status and available to anyone with a (free) ipv6 tunnelbroker.net account, or if you happen to be a customer of the parent company providing this service, &lt;a href=&#34;http://he.net&#34; title=&#34;hurricane electric&#34;&gt;HE&lt;/a&gt; (Hurricane Electric.)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>New writer modules for BIND-DLZ&#39;s DNS Performance Testing Tools</title>
+      <link>http://joemiller.me/2010/06/21/bind-dlz-new-writers/</link>
+      <pubDate>Mon, 21 Jun 2010 19:56:55 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2010/06/21/bind-dlz-new-writers/</guid>
+      <description>&lt;p&gt;The &lt;a href=&#34;http://bind-dlz.sourceforge.net/&#34; title=&#34;BIND-DLZ&#34;&gt;BIND-DLZ&lt;/a&gt; project publishes an excellent set of performance testing &lt;a href=&#34;http://bind-dlz.sourceforge.net/perf_tools.html&#34; title=&#34;bind-dlz performance testing tools&#34;&gt;tools&lt;/a&gt;which make it easy to generate a lot of fake DNS data for a variety of DNS server types.&lt;/p&gt;
+
+&lt;p&gt;I have extended this excellent tool set by creating a few new &amp;ldquo;writer&amp;rdquo; modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;contrib::writers::mydns::file&lt;/li&gt;
+&lt;li&gt;contrib::writers::powerdns::xdb&lt;/li&gt;
+&lt;li&gt;contrib::writers::powerdns::sqlite3&lt;/li&gt;
+&lt;li&gt;contrib::writers::powerdns::gmysql&lt;/li&gt;
+&lt;li&gt;contrib::writers::windowsdns::file&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

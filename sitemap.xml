@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://joemiller.me/</loc>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/post/</loc>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2019/07/project-gpg-key/</loc>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2014/01/heroku-log-drains-into-logstash/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/devops/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/heroku/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/linux/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/logging/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/logging/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/monitoring/</loc>
+    <lastmod>2014-01-31T11:45:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2013/12/07/sensu-and-graphite-part-2/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/graphite/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/howto/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/messaging/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/rabbitmq/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/sensu/</loc>
+    <lastmod>2013-12-07T18:55:11-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2013/10/09/dell-openmanage-on-fedora-19/</loc>
+    <lastmod>2013-10-09T18:15:04-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2013/06/01/sensu-presentation-from-centos-dojo-phoenix/</loc>
+    <lastmod>2013-06-01T09:15:52-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/presentations/</loc>
+    <lastmod>2013-06-01T09:15:52-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/04/26/speeding-up-vagrant-with-parallel-provisioning/</loc>
+    <lastmod>2012-04-26T08:15:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/testing/</loc>
+    <lastmod>2012-04-26T08:15:40-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/vagrant/</loc>
+    <lastmod>2012-04-26T08:15:40-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/02/27/sensu-handler-sets/</loc>
+    <lastmod>2012-02-27T11:06:38-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/02/08/amqpcat-a-netcat-like-tool-for-messaging-fun/</loc>
+    <lastmod>2012-02-08T16:30:02-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/scripting/</loc>
+    <lastmod>2012-02-08T16:30:02-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/02/02/sensu-and-graphite/</loc>
+    <lastmod>2012-02-02T14:18:52-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/software/</loc>
+    <lastmod>2012-02-02T14:18:52-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/01/24/re-use-nagios-plugins-in-sensu-for-quick-profit/</loc>
+    <lastmod>2012-01-24T19:22:17-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2012/01/19/getting-started-with-the-sensu-monitoring-framework/</loc>
+    <lastmod>2012-01-19T20:18:25-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/11/05/correlating-puppet-changes-to-events-in-your-infrastructure/</loc>
+    <lastmod>2011-11-05T19:09:15-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/metrics/</loc>
+    <lastmod>2011-11-05T19:09:15-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/puppet/</loc>
+    <lastmod>2011-11-05T19:09:15-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/09/21/list-of-statsd-server-implementations/</loc>
+    <lastmod>2011-09-21T11:34:46-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/groovy/</loc>
+    <lastmod>2011-06-29T16:50:13-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/06/29/groovy-statsdclient/</loc>
+    <lastmod>2011-06-29T16:50:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/06/06/monitoringsucks-grass-roots-effort-to-make-monitoring-better/</loc>
+    <lastmod>2011-06-06T13:58:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/05/24/alternative-skins-for-skype-5-on-mac-osx/</loc>
+    <lastmod>2011-05-24T12:46:45-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/macosx/</loc>
+    <lastmod>2011-05-24T12:46:45-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/04/26/charlie-sheen-plugin-for-hudson-jenkins/</loc>
+    <lastmod>2011-04-26T16:51:03-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/04/24/kanbanops-new-mailing-list/</loc>
+    <lastmod>2011-04-24T21:10:45-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/kanban/</loc>
+    <lastmod>2011-04-24T21:10:45-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/04/14/collectd-graphite-plugin/</loc>
+    <lastmod>2011-04-14T11:27:19-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/aws/</loc>
+    <lastmod>2011-02-18T16:07:22-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/02/18/client-support-for-amazon-s3-multipart-uploads-files-5gb/</loc>
+    <lastmod>2011-02-18T16:07:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/internet-services/</loc>
+    <lastmod>2011-02-18T16:07:22-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2011/01/31/amazon-cloudfront-private-streaming-tools/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/amazon/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/aws/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/cloudfront/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/private/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/streaming/</loc>
+    <lastmod>2011-01-31T17:34:13-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/dns/</loc>
+    <lastmod>2010-12-22T19:53:20-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/12/22/dns_compare-py-testing-dns-servers/</loc>
+    <lastmod>2010-12-22T19:53:20-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/git/</loc>
+    <lastmod>2010-09-27T15:46:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/git/</loc>
+    <lastmod>2010-09-27T15:46:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/categories/gitosis-ng/</loc>
+    <lastmod>2010-09-27T15:46:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/gitosis-ng/</loc>
+    <lastmod>2010-09-27T15:46:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/09/27/gitosis-ng-%e2%80%93-simple-self-service-git-repositories/</loc>
+    <lastmod>2010-09-27T15:46:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/capistrano/</loc>
+    <lastmod>2010-09-27T14:33:59-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/devops/</loc>
+    <lastmod>2010-09-27T14:33:59-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/mcollective/</loc>
+    <lastmod>2010-09-27T14:33:59-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/shellcmd-agent/</loc>
+    <lastmod>2010-09-27T14:33:59-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/09/27/shellcmd-agent-execute-any-shell-command-in-parallel-on-multiple-machines-with-mcollective/</loc>
+    <lastmod>2010-09-27T14:33:59-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/08/31/simulate-network-latency-packet-loss-and-bandwidth-on-mac-osx/</loc>
+    <lastmod>2010-08-31T16:40:48-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/06/29/free-ipv4-ipv6-dns-hosting/</loc>
+    <lastmod>2010-06-29T17:24:30-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/dns/</loc>
+    <lastmod>2010-06-29T17:24:30-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/06/21/bind-dlz-new-writers/</loc>
+    <lastmod>2010-06-21T19:56:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/perl/</loc>
+    <lastmod>2010-06-21T19:56:55-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2010/06/20/rrdtool-module-for-php/</loc>
+    <lastmod>2010-06-20T20:53:39-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/php/</loc>
+    <lastmod>2010-06-20T20:53:39-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/tags/rrdtool/</loc>
+    <lastmod>2010-06-20T20:53:39-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
