@@ -8,14 +8,6 @@ orbs:
 
 workflows:
   main:
-    # jobs:
-    #   - build
-    #   - deploy:
-    #       requires:
-    #         - build
-    #       filters:
-    #         branches:
-    #           only: master
     jobs:
       - hugo/build:
           version: '0.55'
@@ -27,28 +19,6 @@ workflows:
               only: master
 
 jobs:
-  # build:
-  #   executor:
-  #     name: hugo/cibuilds
-  #     tag: '0.55'
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: "Checkout Submodules if Needed"
-  #         command: |
-  #           if [ -f ".gitmodules" ]; then
-  #             git submodule sync
-  #             git submodule update --init --recursive
-  #           fi
-  #     - hugo/hugo-build
-  #     - hugo/html-proofer:
-  #         path: ./public
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .
-
-
   deploy:
     docker:
       - image: cibuilds/base
