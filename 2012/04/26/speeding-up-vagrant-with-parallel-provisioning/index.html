@@ -119,36 +119,34 @@ if (!doNotTrack) {
 
 <p>Here was the first attempt at a parallelization script:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #75715e">#!/bin/sh</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+
+<span style="color:#75715e"># concurrency is hard, let&#39;s have a beer</span>
 
 
-<span style="color: #75715e"># concurrency is hard, let&#39;s have a beer</span>
+MAX_PROCS<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
 
 
-<span style="color: #f8f8f2">MAX_PROCS</span><span style="color: #f92672">=</span><span style="color: #ae81ff">4</span>
+parallel_provision<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">while</span> read box; <span style="color:#66d9ef">do</span>
+        echo <span style="color:#e6db74">&#34;Provisioning &#39;</span>$box<span style="color:#e6db74">&#39;. Output will be in: </span>$box<span style="color:#e6db74">.out.txt&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+        echo $box
+    <span style="color:#66d9ef">done</span> | xargs -P $MAX_PROCS -I<span style="color:#e6db74">&#34;BOXNAME&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        sh -c <span style="color:#e6db74">&#39;vagrant provision BOXNAME &gt;BOXNAME.out.txt 2&gt;&amp;1 || echo &#34;Error Occurred: BOXNAME&#34;&#39;</span>
+<span style="color:#f92672">}</span>
 
 
-parallel_provision<span style="color: #f92672">()</span> <span style="color: #f92672">{</span>
-    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">read</span> box<span style="color: #f8f8f2">;</span> <span style="color: #66d9ef">do</span>
-        <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">&quot;Provisioning &#39;</span><span style="color: #f8f8f2">$box</span><span style="color: #e6db74">&#39;. Output will be in: </span><span style="color: #f8f8f2">$box</span><span style="color: #e6db74">.out.txt&quot;</span> <span style="color: #ae81ff">1</span>&gt;<span style="color: #f8f8f2">&amp;</span><span style="color: #ae81ff">2</span>
-        <span style="color: #f8f8f2">echo</span> <span style="color: #f8f8f2">$box</span>
-    <span style="color: #66d9ef">done</span> <span style="color: #f8f8f2">|</span> xargs -P <span style="color: #f8f8f2">$MAX_PROCS</span> -I<span style="color: #e6db74">&quot;BOXNAME&quot;</span> <span style="color: #ae81ff">\</span>
-        sh -c <span style="color: #e6db74">&#39;vagrant provision BOXNAME &gt;BOXNAME.out.txt 2&gt;&amp;1 || echo &quot;Error Occurred: BOXNAME&quot;&#39;</span>
-<span style="color: #f92672">}</span>
+<span style="color:#75715e">## -- main -- ##</span>
 
 
-<span style="color: #75715e">## -- main -- ##</span>
-
-
-<span style="color: #75715e"># start boxes sequentially to avoid vbox explosions</span>
+<span style="color:#75715e"># start boxes sequentially to avoid vbox explosions</span>
 vagrant up --no-provision
 
 
-<span style="color: #75715e"># but run provision tasks in parallel</span>
+<span style="color:#75715e"># but run provision tasks in parallel</span>
 cat 
-There are <span style="color: #ae81ff">2</span> steps to the process:
-</code></pre></div>
-
+There are <span style="color:#ae81ff">2</span> steps to the process:</code></pre></div>
 
 <ul>
 <li></li>
@@ -188,7 +186,7 @@ There are <span style="color: #ae81ff">2</span> steps to the process:
     </div>
     <div class="post-footer">
       
-      This post was published <strong>2641</strong> days ago, content in the post may be inaccurate, even wrong now.
+      This post was published <strong>2642</strong> days ago, content in the post may be inaccurate, even wrong now.
     </div>
   </article>
 

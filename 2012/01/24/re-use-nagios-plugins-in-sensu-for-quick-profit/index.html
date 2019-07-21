@@ -102,16 +102,12 @@ if (!doNotTrack) {
 
 <p>First, Make sure you have the EPEL yum repo installed on your machine. Next, let&rsquo;s install the <code>nagios-plugin-http</code> package onto our Sensu client node(s):</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo yum -y install nagios-plugins-http
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum -y install nagios-plugins-http</code></pre></div>
 
 <p>Let&rsquo;s see where the <code>check_http</code> binary was installed (note the arch specific path):</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>$ rpm -ql nagios-plugins-http
-/usr/lib64/nagios/plugins/check_http
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rpm -ql nagios-plugins-http
+/usr/lib64/nagios/plugins/check_http</code></pre></div>
 
 <h2 id="write-the-sensu-check-definition">Write the Sensu check definition</h2>
 
@@ -119,19 +115,17 @@ if (!doNotTrack) {
 
 <p><code>/etc/sensu/conf.d/check_google.json</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-json" data-lang="json"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #f92672">&quot;checks&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f92672">&quot;check_google&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #f92672">&quot;notification&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Google HTTP failed&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #f92672">&quot;command&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_http google.com -R &#39;search&#39;&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #f92672">&quot;subscribers&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;webservers&quot;</span><span style="color: #f8f8f2">],</span>
-      <span style="color: #f92672">&quot;interval&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #f92672">&quot;handlers&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;default&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;pagerduty&quot;</span><span style="color: #f8f8f2">]</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;checks&#34;</span>: {
+    <span style="color:#f92672">&#34;check_google&#34;</span>: {
+      <span style="color:#f92672">&#34;notification&#34;</span>: <span style="color:#e6db74">&#34;Google HTTP failed&#34;</span>,
+      <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_http google.com -R &#39;search&#39;&#34;</span>,
+      <span style="color:#f92672">&#34;subscribers&#34;</span>: [<span style="color:#e6db74">&#34;webservers&#34;</span>],
+      <span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#ae81ff">60</span>,
+      <span style="color:#f92672">&#34;handlers&#34;</span>: [<span style="color:#e6db74">&#34;default&#34;</span>, <span style="color:#e6db74">&#34;pagerduty&#34;</span>]
+    }
+  }
+}</code></pre></div>
 
 <p>Let&rsquo;s look at each part of this check definition:</p>
 
@@ -149,16 +143,12 @@ if (!doNotTrack) {
 
 <p>In a couple minutes, you should see the following in <code>/var/log/sensu/sensu-server.log</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-23T19:14:22.218301 <span style="color: #75715e">#7397] INFO -- : [publisher] -- publishing check request -- check_google -- webservers {&quot;message&quot;:&quot;[publisher] -- publishing check request -- check_google -- webservers&quot;,&quot;level&quot;:&quot;info&quot;,&quot;timestamp&quot;:&quot;2012-01-23T19:14:22. %6N-0700&quot;}</span>
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">I, <span style="color:#f92672">[</span><span style="color:#ae81ff">2012</span>-01-23T19:14:22.218301 <span style="color:#75715e">#7397] INFO -- : [publisher] -- publishing check request -- check_google -- webservers {&#34;message&#34;:&#34;[publisher] -- publishing check request -- check_google -- webservers&#34;,&#34;level&#34;:&#34;info&#34;,&#34;timestamp&#34;:&#34;2012-01-23T19:14:22. %6N-0700&#34;}</span></code></pre></div>
 
 <p>And on the client, in <code>/var/log/sensu/sensu-client.log</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-23T19:15:22.224437 <span style="color: #75715e">#18787] INFO -- : [subscribe] -- received check request -- check_google {&quot;message&quot;:&quot;[subscribe] -- received check request -- check_google&quot;,&quot;level&quot;:&quot;info&quot;,&quot;timestamp&quot;:&quot;2012-01-23T19:15:22. %6N-0700&quot;}</span>
-I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>-01-23T19:15:22.348884 <span style="color: #75715e">#18787] INFO -- : [result] -- publishing check result -- check_google -- 0 -- HTTP OK: HTTP/1.0 200 OK - 11294 bytes in 0.099 second response time |time=0.099463s;;;0.000000 size=11294B;;;0</span>
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">I, <span style="color:#f92672">[</span><span style="color:#ae81ff">2012</span>-01-23T19:15:22.224437 <span style="color:#75715e">#18787] INFO -- : [subscribe] -- received check request -- check_google {&#34;message&#34;:&#34;[subscribe] -- received check request -- check_google&#34;,&#34;level&#34;:&#34;info&#34;,&#34;timestamp&#34;:&#34;2012-01-23T19:15:22. %6N-0700&#34;}</span>
+I, <span style="color:#f92672">[</span><span style="color:#ae81ff">2012</span>-01-23T19:15:22.348884 <span style="color:#75715e">#18787] INFO -- : [result] -- publishing check result -- check_google -- 0 -- HTTP OK: HTTP/1.0 200 OK - 11294 bytes in 0.099 second response time |time=0.099463s;;;0.000000 size=11294B;;;0</span></code></pre></div>
 
 <p>There we go. We have implemented a Sensu check using a Nagios plugin. There are quite a few <a href="http://nagiosplugins.org/">Nagios plugins</a> out there and we should be able to use most (all?) of them with Sensu. Go forth and profit.</p>
 
@@ -166,7 +156,7 @@ I, <span style="color: #f92672">[</span><span style="color: #ae81ff">2012</span>
     </div>
     <div class="post-footer">
       
-      This post was published <strong>2733</strong> days ago, content in the post may be inaccurate, even wrong now.
+      This post was published <strong>2734</strong> days ago, content in the post may be inaccurate, even wrong now.
     </div>
   </article>
 

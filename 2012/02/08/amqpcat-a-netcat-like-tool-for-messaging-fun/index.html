@@ -104,24 +104,18 @@ Available on github and rubygems.org: https://github.com/joemiller/amqpcat" />
 
 <p>Installation is easy:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo gem install amqpcat --no-rdoc --no-ri
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo gem install amqpcat --no-rdoc --no-ri</code></pre></div>
 
 <h2 id="1-1-messaging-demonstration">1:1 Messaging demonstration</h2>
 
 <p>Publish a message:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>$ <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">&quot;hello there&quot;</span> <span style="color: #f8f8f2">|</span> amqpcat amqp://guest:guest@rabbitmq -t direct -n test.direct --publisher
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;hello there&#34;</span> | amqpcat amqp://guest:guest@rabbitmq -t direct -n test.direct --publisher</code></pre></div>
 
 <p>Receive the message:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>$ amqpcat amqp://guest:guest@rabbitmq -t direct -n test.direct --consumer
-hello there
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ amqpcat amqp://guest:guest@rabbitmq -t direct -n test.direct --consumer
+hello there</code></pre></div>
 
 <p>Pretty simple. There are various other options, run with <code>-h</code> to see them all. You can easily load-balance amongst multiple consumers by starting multiple consumers with the same url and options. See the <a href="https://github.com/joemiller/amqpcat/blob/master/examples/test_direct.sh">test_direct.sh</a> example for a demo of this.</p>
 
@@ -129,23 +123,17 @@ hello there
 
 <p>Start 2 (or more) consumers:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>$ amqpcat amqp://rabbitmq -t fanout -n test.fanout -s <span style="color: #e6db74">&quot;Consumer-1: &quot;</span> --consumer <span style="color: #f8f8f2">&amp;</span>
-$ amqpcat amqp://rabbitmq -t fanout -n test.fanout -s <span style="color: #e6db74">&quot;Consumer-2: &quot;</span> --consumer <span style="color: #f8f8f2">&amp;</span>
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ amqpcat amqp://rabbitmq -t fanout -n test.fanout -s <span style="color:#e6db74">&#34;Consumer-1: &#34;</span> --consumer &amp;
+$ amqpcat amqp://rabbitmq -t fanout -n test.fanout -s <span style="color:#e6db74">&#34;Consumer-2: &#34;</span> --consumer &amp;</code></pre></div>
 
 <p>Publish a message:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>$ <span style="color: #f8f8f2">echo</span> <span style="color: #e6db74">&quot;hello there&quot;</span> <span style="color: #f8f8f2">|</span> amqpcat amqp://guest:guest@rabbitmq -t fanout -n test.fanout --publisher
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ echo <span style="color:#e6db74">&#34;hello there&#34;</span> | amqpcat amqp://guest:guest@rabbitmq -t fanout -n test.fanout --publisher</code></pre></div>
 
 <p>You should see both consumers receive the message, ie:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>Consumer-1: hello there
-Consumer-2: hello there
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Consumer-1: hello there
+Consumer-2: hello there</code></pre></div>
 
 <p>See <a href="https://github.com/joemiller/amqpcat/blob/master/examples/test_fanout.sh">test_fanout.sh</a> for a similar example.</p>
 

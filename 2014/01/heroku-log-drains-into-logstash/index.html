@@ -117,30 +117,24 @@ Fortunately there&rsquo;s another option using Heroku&rsquo;s log drain. Setting
 
 <p>List apps:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>$ heroku apps
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ heroku apps
 
 myapp1 email@dom.tld
-myapp2 email@dom.tld
-</code></pre></div>
-
+myapp2 email@dom.tld</code></pre></div>
 
 <p>Tail app&rsquo;s logs:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>$ heroku logs --app myapp1 -t
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ heroku logs --app myapp1 -t
 
 2014-01-31T14:26:11.801629+00:00 app[web.1]: 2014-01-31T14:26:11.801Z - debug: FETCHING TICKET: 15846
 2014-01-31T14:26:26.753977+00:00 app[web.1]: 2014-01-31T14:26:26.752Z - debug: FETCHING TICKET: 15851
-2014-01-31T14:26:27.457415+00:00 heroku[router]: at=info method=GET path=/ping? host=myapp1 request_id=6cb9b9eb-388c-4364-9278-a81179067f21 fwd=&quot;50.57.38.1&quot; dyno=web.2 connect=7ms service=6ms status=200 bytes=2
-</code></pre></div>
-
+2014-01-31T14:26:27.457415+00:00 heroku[router]: at=info method=GET path=/ping? host=myapp1 request_id=6cb9b9eb-388c-4364-9278-a81179067f21 fwd=&#34;50.57.38.1&#34; dyno=web.2 connect=7ms service=6ms status=200 bytes=2</code></pre></div>
 
 <h2 id="configure-log-drain">Configure log drain</h2>
 
 <p>Use the Heroku toolbelt to configure a log drain:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>$ heroku drains:add --app myapp1 syslog://logstash.dom.tld:1514
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ heroku drains:add --app myapp1 syslog://logstash.dom.tld:1514</code></pre></div>
 
 <p>Heroku&rsquo;s Logplex system will now send all logs generated from <code>myapp1</code> to <code>logstash.dom.tld:1514</code> via TCP in syslog RFC-5424 format.</p>
 
@@ -148,14 +142,12 @@ myapp2 email@dom.tld
 
 <p>Next, configure a Logstash input to receive these logs:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>input {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">input {
     tcp {
-        port =&gt; &quot;1514&quot;
-        tags =&gt; [&quot;input_heroku_syslog&quot;]
+        port =&gt; &#34;1514&#34;
+        tags =&gt; [&#34;input_heroku_syslog&#34;]
     }
-}
-</code></pre></div>
-
+}</code></pre></div>
 
 <p>Heroku uses the syslog format as defined in RFC 5424. Logstash ships with a grok rules that parse out most syslog formats including RFC 5424 but I found that they were not quite perfect for Heroku logs.</p>
 
@@ -165,30 +157,24 @@ myapp2 email@dom.tld
 
 <p>The first is an example of a log message sent from a heroku component, in this case the Heroku router:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>231 1 2014-01-08T01:05:27.967180+00:00 d.9bc44987-ff40-40ac-a248-ff4ec4d71d7c heroku router - - at=info method=POST path=/ host=myapp1.herokuapp.com fwd=&quot;204.236.185.9&quot; dyno=web.1 connect=2ms service=81ms status=200 bytes=2
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">231 1 2014-01-08T01:05:27.967180+00:00 d.9bc44987-ff40-40ac-a248-ff4ec4d71d7c heroku router - - at=info method=POST path=/ host=myapp1.herokuapp.com fwd=&#34;204.236.185.9&#34; dyno=web.1 connect=2ms service=81ms status=200 bytes=2</code></pre></div>
 
 <p>Next, is an example of a log line generated from the application&rsquo;s stdout:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>158 1 2014-01-08T17:49:14.822585+00:00 d.9bc44987-ff40-40ac-a248-ff4ec4d71d7c app web.1 - - 2014-01-08T17:49:14.822Z -minfo: FETCHING TICKET: 15103
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">158 1 2014-01-08T17:49:14.822585+00:00 d.9bc44987-ff40-40ac-a248-ff4ec4d71d7c app web.1 - - 2014-01-08T17:49:14.822Z -minfo: FETCHING TICKET: 15103</code></pre></div>
 
 <p>Here is the grok pattern we use to parse Heroku&rsquo;s syslog RFC 5424-(ish) log messages:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-console" data-lang="console"><span></span>filter {
-  if &quot;input_heroku_syslog&quot; in [tags] {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">filter {
+  if &#34;input_heroku_syslog&#34; in [tags] {
     grok {
-      match =&gt; [&quot;message&quot;, &quot;%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver} +(?:%{TIMESTAMP_ISO8601:timestamp}|-) +(?:%{HOSTNAME:heroku_drain_id}|-) +(?:%{WORD:heroku_source}|-) +(?:%{DATA:heroku_dyno}|-) +(?:%{WORD:syslog5424_msgid}|-) +(?:%{SYSLOG5424SD:syslog5424_sd}|-|) +%{GREEDYDATA:heroku_message}&quot;]
+      match =&gt; [&#34;message&#34;, &#34;%{SYSLOG5424PRI}%{NONNEGINT:syslog5424_ver} +(?:%{TIMESTAMP_ISO8601:timestamp}|-) +(?:%{HOSTNAME:heroku_drain_id}|-) +(?:%{WORD:heroku_source}|-) +(?:%{DATA:heroku_dyno}|-) +(?:%{WORD:syslog5424_msgid}|-) +(?:%{SYSLOG5424SD:syslog5424_sd}|-|) +%{GREEDYDATA:heroku_message}&#34;]
     }
-    mutate { rename =&gt; [&quot;heroku_message&quot;, &quot;message&quot;] }
-    kv { source =&gt; &quot;message&quot; }
-    syslog_pri { syslog_pri_field_name =&gt; &quot;syslog5424_pri&quot; }
+    mutate { rename =&gt; [&#34;heroku_message&#34;, &#34;message&#34;] }
+    kv { source =&gt; &#34;message&#34; }
+    syslog_pri { syslog_pri_field_name =&gt; &#34;syslog5424_pri&#34; }
   }
-}
-</code></pre></div>
-
+}</code></pre></div>
 
 <p>A few notes about this filter config:</p>
 

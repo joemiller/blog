@@ -141,23 +141,19 @@ These tools should make it simple for any linux admin or developer to get starte
 
 <h4 id="1-setup-aws-keys">1. Setup AWS keys</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ export AWS_ACCESS_KEY_ID=&#39;xxxxx&#39;
-$ export AAWS_SECRET_ACCESS_KEY=&#39;xxxxxx&#39;
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ export AWS_ACCESS_KEY_ID=&#39;xxxxx&#39;
+$ export AAWS_SECRET_ACCESS_KEY=&#39;xxxxxx&#39;</code></pre></div>
 
 <h4 id="2-create-a-new-cloudfront-streaming-distribution">2. Create a new Cloudfront Streaming Distribution</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-streaming-distribution.rb create my-video-bucket \
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-streaming-distribution.rb create my-video-bucket \
     --cname cf.example.com \
-    -m &quot;private streaming distribution (rtmp) with origin bucket: my-video-bucket&quot;
+    -m &#34;private streaming distribution (rtmp) with origin bucket: my-video-bucket&#34;
 
 
  Success!
  domain_name: s1loj2pirm00it.cloudfront.net
- aws_id: E1UGDLB9XZBD79
-</code></pre></div>
-
+ aws_id: E1UGDLB9XZBD79</code></pre></div>
 
 <h4 id="3-configure-cname-in-your-dns-server">3. Configure CNAME in your DNS server</h4>
 
@@ -165,31 +161,25 @@ $ export AAWS_SECRET_ACCESS_KEY=&#39;xxxxxx&#39;
 
 <h4 id="4-create-a-new-origin-access-id-oai">4. Create a new Origin-Access-ID (OAI)</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-origin-access-id.rb create &quot;OAI for use on the cf.example.com distribution&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-origin-access-id.rb create &#34;OAI for use on the cf.example.com distribution&#34;
 
 
  Success!
  AWS_ID : E2CWXW7A1B3YIU
  Location : https://cloudfront.amazonaws.com/origin-access-identity/cloudfront/E2CWXW7A1B3YIU
- S3 Canonical ID: 3b5285f7f1b51ff2e63e8ff8127b7ffb76edee24580cb7fff6ef812aa87b749aaa3ed1aab389aaaab4453499a7ba57e7
-</code></pre></div>
-
+ S3 Canonical ID: 3b5285f7f1b51ff2e63e8ff8127b7ffb76edee24580cb7fff6ef812aa87b749aaa3ed1aab389aaaab4453499a7ba57e7</code></pre></div>
 
 <h4 id="5-assign-the-oai-to-the-cloudfront-distribution">5. Assign the OAI to the Cloudfront distribution</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-streaming-distribution.rb modify E1UGDLB9XZBD79 --oai E2CWXW7A1B3YIU
- Success!
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-streaming-distribution.rb modify E1UGDLB9XZBD79 --oai E2CWXW7A1B3YIU
+ Success!</code></pre></div>
 
 <h4 id="6-grant-the-oai-access-to-the-files-in-the-s3-bucket">6. Grant the OAI access to the files in the S3 bucket</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-origin-access-id.rb grant E2CWXW8B1U3YJU my-video-bucket
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-origin-access-id.rb grant E2CWXW8B1U3YJU my-video-bucket
  Applying grant [E2CWXW8B1U3YJU:&#39;FULL_CONTROL&#39;] on: my-video-bucket/flvs/video01.flv
  Applying grant [E2CWXW8B1U3YJU:&#39;FULL_CONTROL&#39;] on: my-video-bucket/flvs/video02.flv
-...
-</code></pre></div>
-
+...</code></pre></div>
 
 <h4 id="7-create-rsa-keypair-on-the-amazon-aws-website">7. Create RSA Keypair on the Amazon AWS website</h4>
 
@@ -209,14 +199,12 @@ $ export AAWS_SECRET_ACCESS_KEY=&#39;xxxxxx&#39;
 <p>NOTE: the &ndash;trusted-signer arguments takes an amazon account ID as an argument.<br />
 The special ‘self’ can be used instead.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-streaming-distribution.rb modify E1UGDLB9XZBD79 --trusted-signer self
- Success!
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-streaming-distribution.rb modify E1UGDLB9XZBD79 --trusted-signer self
+ Success!</code></pre></div>
 
 <h4 id="9-verify-settings-on-the-new-private-streaming-distribution">9. Verify settings on the new private Streaming Distribution</h4>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-text" data-lang="text"><span></span>$ ./cf-streaming-distribution.rb get E1UGDLB9XZBD79
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ ./cf-streaming-distribution.rb get E1UGDLB9XZBD79
  AWS_ID : E1UGDLB9XZBD79
  E_TAG : EQ3HGAPOK1IFN
  Status : InProgress
@@ -229,9 +217,7 @@ The special ‘self’ can be used instead.</p>
  Trusted Signers : self
  Active Signers:
      -&gt; aws_account_number: self
-          -&gt; key_pair_id : APDBDOEHALFXGK5AQU5R
-</code></pre></div>
-
+          -&gt; key_pair_id : APDBDOEHALFXGK5AQU5R</code></pre></div>
 
 <p>NOTE: The distribution will not be usable until Status changes from InProgress to Deployed. This can take up to 15minutes.</p>
 

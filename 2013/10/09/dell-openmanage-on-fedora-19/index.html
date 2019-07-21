@@ -113,13 +113,11 @@ if (!doNotTrack) {
 
 <p>Next, run <code>yum search srvadmin</code> and you should see the list of OpenManage packages:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>srvadmin-all.x86_64 : Meta package <span style="color: #66d9ef">for</span> installing all Server Administrator features, <span style="color: #ae81ff">7</span>.3.0
-srvadmin-argtable2.x86_64 : A library <span style="color: #66d9ef">for</span> parsing GNU style <span style="color: #f8f8f2">command</span> line arguments, <span style="color: #ae81ff">7</span>.3.0
-srvadmin-base.x86_64 : Meta package <span style="color: #66d9ef">for</span> installing the Server Agent, <span style="color: #ae81ff">7</span>.3.0
-srvadmin-cm.i386 : OpenManage Inventory Collector, <span style="color: #ae81ff">7</span>.3.0
-...
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">srvadmin-all.x86_64 : Meta package <span style="color:#66d9ef">for</span> installing all Server Administrator features, <span style="color:#ae81ff">7</span>.3.0
+srvadmin-argtable2.x86_64 : A library <span style="color:#66d9ef">for</span> parsing GNU style command line arguments, <span style="color:#ae81ff">7</span>.3.0
+srvadmin-base.x86_64 : Meta package <span style="color:#66d9ef">for</span> installing the Server Agent, <span style="color:#ae81ff">7</span>.3.0
+srvadmin-cm.i386 : OpenManage Inventory Collector, <span style="color:#ae81ff">7</span>.3.0
+...</code></pre></div>
 
 <p>Install the ones you need. For the basic CLI tools you can install <code>srvadmin-omcommon</code> and <code>srvadmin-omacore</code>.</p>
 
@@ -129,9 +127,7 @@ srvadmin-cm.i386 : OpenManage Inventory Collector, <span style="color: #ae81ff">
 
 <p>Trick the startup scripts into attempting to start anyway by creating this file:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>touch /opt/dell/srvadmin/lib64/openmanage/IGNORE_GENERATION
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">touch /opt/dell/srvadmin/lib64/openmanage/IGNORE_GENERATION</code></pre></div>
 
 <p>The presence of this file skips the checks performed in <code>/opt/dell/srvadmin/sbin/CheckSystemType</code> during dataeng startup.</p>
 
@@ -139,16 +135,15 @@ srvadmin-cm.i386 : OpenManage Inventory Collector, <span style="color: #ae81ff">
 
 <p>run <code>sudo /opt/dell/srvadmin/bin/omreport chassis info</code>, you should see:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>Chassis Information
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Chassis Information
 
 
-Index : <span style="color: #ae81ff">0</span>
+Index : <span style="color:#ae81ff">0</span>
 Chassis Name : Main System Chassis
 Host Name : hardware_bootstrap_test.pod1.panth.io
-iDRAC7 Version : <span style="color: #ae81ff">1</span>.40.40 <span style="color: #f92672">(</span>Build <span style="color: #ae81ff">17</span><span style="color: #f92672">)</span>
-Lifecycle Controller <span style="color: #ae81ff">2</span> Version : <span style="color: #ae81ff">1</span>.1.1.18
-Chassis Model : PowerEdge R720
-</code></pre></div>
+iDRAC7 Version : <span style="color:#ae81ff">1</span>.40.40 <span style="color:#f92672">(</span>Build <span style="color:#ae81ff">17</span><span style="color:#f92672">)</span>
+Lifecycle Controller <span style="color:#ae81ff">2</span> Version : <span style="color:#ae81ff">1</span>.1.1.18
+Chassis Model : PowerEdge R720</code></pre></div>
     </div>
     <div class="post-footer">
       

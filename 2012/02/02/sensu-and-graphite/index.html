@@ -121,51 +121,43 @@ Updated December 7, 2013 : I no longer recommend using the approach described in
 
 <p>For this example, we&rsquo;re going to use the <code>vmstat-metrics</code> plugin which can be found in the <a href="https://github.com/sonian/sensu-community-plugins">sensu-community-plugins</a> repository on github. The plugins in this repo are meant to be cherry-picked, so let&rsquo;s just grab the one we&rsquo;re interested in:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #f8f8f2">cd</span> /etc/sensu/plugins/
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /etc/sensu/plugins/
 sudo wget https://raw.github.com/sonian/sensu-community-plugins/master/plugins/system/vmstat-metrics.rb
-sudo chmod +x vmstat-metrics.rb
-</code></pre></div>
-
+sudo chmod +x vmstat-metrics.rb</code></pre></div>
 
 <p>Most, but not all, of the plugins in the sensu-community-plugins repository use helper classes from the <a href="https://github.com/sonian/sensu-plugin">sensu-plugin</a>, so we&rsquo;ll need to install that gem on the nodes that will be running the <code>vmstat-metrics</code> plugin.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>sudo gem install sensu-plugin --no-rdoc --no-ri
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo gem install sensu-plugin --no-rdoc --no-ri</code></pre></div>
 
 <p>Open up <code>vmstat-metrics.rb</code> and we see that it inherits a lot of plumbing from the <code>Sensu::Plugin::Metric::CLI::Graphite</code> class. Keep this in mind when writing your own metrics-gathering plugins, it can save you some time.</p>
 
 <p>Let&rsquo;s run the plugin manually so we can see the output.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>./vmstat-metrics.rb 
-stats.swap.in <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328153991</span>
-stats.swap.out <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328153991</span>
-stats.memory.active <span style="color: #ae81ff">122160</span> <span style="color: #ae81ff">1328153991</span>
-stats.memory.swap_used <span style="color: #ae81ff">8</span> <span style="color: #ae81ff">1328153991</span>
-stats.memory.free <span style="color: #ae81ff">48556</span> <span style="color: #ae81ff">1328153991</span>
-stats.memory.inactive <span style="color: #ae81ff">73704</span> <span style="color: #ae81ff">1328153991</span>
-stats.cpu.waiting <span style="color: #ae81ff">1</span> <span style="color: #ae81ff">1328153991</span>
-stats.cpu.idle <span style="color: #ae81ff">95</span> <span style="color: #ae81ff">1328153991</span>
-stats.cpu.system <span style="color: #ae81ff">4</span> <span style="color: #ae81ff">1328153991</span>
-...
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./vmstat-metrics.rb 
+stats.swap.in <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328153991</span>
+stats.swap.out <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328153991</span>
+stats.memory.active <span style="color:#ae81ff">122160</span> <span style="color:#ae81ff">1328153991</span>
+stats.memory.swap_used <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">1328153991</span>
+stats.memory.free <span style="color:#ae81ff">48556</span> <span style="color:#ae81ff">1328153991</span>
+stats.memory.inactive <span style="color:#ae81ff">73704</span> <span style="color:#ae81ff">1328153991</span>
+stats.cpu.waiting <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1328153991</span>
+stats.cpu.idle <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">1328153991</span>
+stats.cpu.system <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">1328153991</span>
+...</code></pre></div>
 
 <p>We will want to customize the path before sending this data to Graphite, including adding a hostname to differentiate it from other hosts. This can be done with the &ndash;scheme switch:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span>./vmstats-metrics.rb --scheme stats.<span style="color: #e6db74">`</span>hostname -s<span style="color: #e6db74">`</span>
-stats.host01.swap.in <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.swap.out <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.memory.active <span style="color: #ae81ff">122512</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.memory.swap_used <span style="color: #ae81ff">8</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.memory.free <span style="color: #ae81ff">43856</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.memory.inactive <span style="color: #ae81ff">75120</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.cpu.waiting <span style="color: #ae81ff">1</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.cpu.idle <span style="color: #ae81ff">95</span> <span style="color: #ae81ff">1328155423</span>
-stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color: #ae81ff">1328155423</span>
-...
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./vmstats-metrics.rb --scheme stats.<span style="color:#e6db74">`</span>hostname -s<span style="color:#e6db74">`</span>
+stats.host01.swap.in <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.swap.out <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.memory.active <span style="color:#ae81ff">122512</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.memory.swap_used <span style="color:#ae81ff">8</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.memory.free <span style="color:#ae81ff">43856</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.memory.inactive <span style="color:#ae81ff">75120</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.cpu.waiting <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.cpu.idle <span style="color:#ae81ff">95</span> <span style="color:#ae81ff">1328155423</span>
+stats.host01.cpu.system <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">1328155423</span>
+...</code></pre></div>
 
 <p>If you&rsquo;re familiar with Graphite, this should look familiar. This data fits Graphite&rsquo;s &ldquo;stat.name value timestamp&rdquo; format and we can be feed it directly into Graphite via a couple different methods.</p>
 
@@ -175,19 +167,18 @@ stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color
 
 <p>File: <code>/etc/sensu/conf.d/metrics_vmstat.json</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;checks&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;vmstat_metrics&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;metric&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;graphite&quot;</span><span style="color: #f8f8f2">],</span> 
-      <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/plugins/vmstat-metrics.rb --scheme stats.:::name:::&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;interval&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
-          <span style="color: #e6db74">&quot;subscribers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;webservers&quot;</span><span style="color: #f8f8f2">]</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>  
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;checks&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;vmstat_metrics&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;metric&#34;</span>,
+      <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;graphite&#34;</span>], 
+      <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/plugins/vmstat-metrics.rb --scheme stats.:::name:::&#34;</span>,
+      <span style="color:#e6db74">&#34;interval&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span>,
+          <span style="color:#e6db74">&#34;subscribers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;webservers&#34;</span>]
+    }
+  }  
+}
 </code></pre></div>
-
 
 <p>There are two new items in this check definition that we haven&rsquo;t covered yet:</p>
 
@@ -213,27 +204,25 @@ stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color
 
 <p>Next create <code>/etc/sensu/conf.d/graphite_tcp.json</code> config file:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;graphite&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;server&quot;</span><span style="color: #f92672">:</span><span style="color: #e6db74">&quot;graphite.example.com&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #e6db74">&quot;port&quot;</span><span style="color: #f92672">:</span><span style="color: #e6db74">&quot;2003&quot;</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;graphite&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;server&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;graphite.example.com&#34;</span>,
+    <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;2003&#34;</span>
+  }
+}
 </code></pre></div>
-
 
 <p>Create <code>/etc/sensu/conf.d/handler_graphite.json</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;graphite&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/handlers/graphite_tcp.rb&quot;</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;graphite&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pipe&#34;</span>,
+      <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/handlers/graphite_tcp.rb&#34;</span>
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>Restart sensu-server and you should start seeing vmstat metrics show up in Graphite.</p>
 
@@ -247,17 +236,15 @@ stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color
 
 <p><code>/opt/graphite/conf/carbon.conf</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-ini" data-lang="ini"><span></span><span style="color: #a6e22e">ENABLE_AMQP</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">True</span>
-<span style="color: #75715e"># AMQP_VERBOSE = True</span>
-<span style="color: #a6e22e">AMQP_HOST</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">sensu.example.com</span>
-<span style="color: #a6e22e">AMQP_PORT</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">5672</span>
-<span style="color: #a6e22e">AMQP_VHOST</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">/sensu</span>
-<span style="color: #a6e22e">AMQP_USER</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">sensu</span>
-<span style="color: #a6e22e">AMQP_PASSWORD</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">mypass</span>
-<span style="color: #a6e22e">AMQP_EXCHANGE</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">metrics</span>
-<span style="color: #a6e22e">AMQP_METRIC_NAME_IN_BODY</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">True</span>
-</code></pre></div>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#a6e22e">ENABLE_AMQP</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">True</span>
+<span style="color:#75715e"># AMQP_VERBOSE = True</span>
+<span style="color:#a6e22e">AMQP_HOST</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">sensu.example.com</span>
+<span style="color:#a6e22e">AMQP_PORT</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">5672</span>
+<span style="color:#a6e22e">AMQP_VHOST</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/sensu</span>
+<span style="color:#a6e22e">AMQP_USER</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">sensu</span>
+<span style="color:#a6e22e">AMQP_PASSWORD</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">mypass</span>
+<span style="color:#a6e22e">AMQP_EXCHANGE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">metrics</span>
+<span style="color:#a6e22e">AMQP_METRIC_NAME_IN_BODY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">True</span></code></pre></div>
 
 <p>An important part of this config is <code>AMQP_METRIC_NAME_IN_BODY = True</code> which means Graphite will determine the metric name from the contents of the message rather than via the routing key. See <a href="https://answers.launchpad.net/graphite/+question/163389">here</a> for more info.</p>
 
@@ -265,21 +252,20 @@ stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color
 
 <p>Edit <code>/etc/sensu/conf.d/handler_graphite.json</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;graphite&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;amqp&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;exchange&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;topic&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;metrics&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;durable&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;true&quot;</span>
-      <span style="color: #f8f8f2">},</span>
-      <span style="color: #e6db74">&quot;mutator&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;only_check_output&quot;</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;graphite&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;amqp&#34;</span>,
+      <span style="color:#e6db74">&#34;exchange&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;topic&#34;</span>,
+        <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;metrics&#34;</span>,
+        <span style="color:#e6db74">&#34;durable&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;true&#34;</span>
+      },
+      <span style="color:#e6db74">&#34;mutator&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;only_check_output&#34;</span>
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>A few things to note here:</p>
 
@@ -293,12 +279,11 @@ stats.host01.cpu.system <span style="color: #ae81ff">4</span> <span style="color
 
 <p>For debugging the Graphite side of things, it can be helpful to enable <code>AMQP_VERBOSE = True</code> in <code>carbon.conf</code>. With this enabled, the following will be visible in <code>listener.log</code> when a metric is successfully retrieved from rabbitmq by Graphite:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-bash" data-lang="bash"><span></span><span style="color: #ae81ff">02</span>/02/2012 <span style="color: #ae81ff">10</span>:11:11 :: Message received: Method<span style="color: #f92672">(</span><span style="color: #f8f8f2">name</span><span style="color: #f92672">=</span>deliver, <span style="color: #f8f8f2">id</span><span style="color: #f92672">=</span><span style="color: #ae81ff">60</span><span style="color: #f92672">)</span> <span style="color: #f92672">(</span><span style="color: #e6db74">&#39;graphite_consumer&#39;</span>, <span style="color: #ae81ff">8</span>, False, <span style="color: #e6db74">&#39;metrics&#39;</span>, <span style="color: #e6db74">&#39;&#39;</span><span style="color: #f92672">)</span> <span style="color: #f8f8f2">content</span> <span style="color: #f92672">=</span> 
-<span style="color: #ae81ff">02</span>/02/2012 <span style="color: #ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.swap.in <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328195471</span>
-<span style="color: #ae81ff">02</span>/02/2012 <span style="color: #ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.swap.out <span style="color: #ae81ff">0</span> <span style="color: #ae81ff">1328195471</span>
-<span style="color: #ae81ff">02</span>/02/2012 <span style="color: #ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.memory.active <span style="color: #ae81ff">126856</span> <span style="color: #ae81ff">1328195471</span>
-...
-</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">02</span>/02/2012 <span style="color:#ae81ff">10</span>:11:11 :: Message received: Method<span style="color:#f92672">(</span>name<span style="color:#f92672">=</span>deliver, id<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;graphite_consumer&#39;</span>, <span style="color:#ae81ff">8</span>, False, <span style="color:#e6db74">&#39;metrics&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">)</span> content <span style="color:#f92672">=</span> 
+<span style="color:#ae81ff">02</span>/02/2012 <span style="color:#ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.swap.in <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328195471</span>
+<span style="color:#ae81ff">02</span>/02/2012 <span style="color:#ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.swap.out <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1328195471</span>
+<span style="color:#ae81ff">02</span>/02/2012 <span style="color:#ae81ff">10</span>:11:11 :: Metric posted: test.sensu-server.memory.active <span style="color:#ae81ff">126856</span> <span style="color:#ae81ff">1328195471</span>
+...</code></pre></div>
     </div>
     <div class="post-footer">
       

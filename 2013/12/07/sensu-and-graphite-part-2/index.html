@@ -153,35 +153,33 @@ At the time I recommended method #2 which was more efficient - Sensu would simpl
 
 <p>Example tcp handler:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-js" data-lang="js"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;graphite_line_tcp&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;tcp&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;socket&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;host&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;metrics.dom.tld&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;port&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">2003</span>
-      <span style="color: #f8f8f2">}</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;graphite_line_tcp&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;tcp&#34;</span>,
+      <span style="color:#e6db74">&#34;socket&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;metrics.dom.tld&#34;</span>,
+        <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2003</span>
+      }
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>Add the <code>graphite_line_tcp</code> handler to your metric checks:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-js" data-lang="js"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;checks&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;vmstat_metrics&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;metric&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;graphite_line_tcp&quot;</span><span style="color: #f8f8f2">],</span>
-      <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/plugins/vmstat-metrics.rb --scheme stats.:::name:::&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;interval&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;subscribers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;webservers&quot;</span><span style="color: #f8f8f2">]</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#e6db74">&#34;checks&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;vmstat_metrics&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;metric&#34;</span>,
+      <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;graphite_line_tcp&#34;</span>],
+      <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/plugins/vmstat-metrics.rb --scheme stats.:::name:::&#34;</span>,
+      <span style="color:#e6db74">&#34;interval&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span>,
+      <span style="color:#e6db74">&#34;subscribers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;webservers&#34;</span>]
+    }
+  }
+}
 </code></pre></div>
-
 
 <h3 id="wizardvan-aka-sensu-metrics-relay-extension">WizardVan (aka, sensu-metrics-relay) Extension</h3>
 
@@ -195,22 +193,21 @@ At the time I recommended method #2 which was more efficient - Sensu would simpl
 
 <p>Here is a general example for configuring WizardVan. See the docs for more options.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-js" data-lang="js"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;relay&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;graphite&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-            <span style="color: #e6db74">&quot;host&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;graphite.dom.tld&quot;</span><span style="color: #f8f8f2">,</span>
-            <span style="color: #e6db74">&quot;port&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">2003</span>
-        <span style="color: #f8f8f2">},</span>
-        <span style="color: #e6db74">&quot;opentsdb&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-            <span style="color: #e6db74">&quot;host&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;tsdb.dom.tld&quot;</span><span style="color: #f8f8f2">,</span>
-            <span style="color: #e6db74">&quot;port&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">4424</span>
-        <span style="color: #f8f8f2">}</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;relay&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;graphite&#34;</span><span style="color:#f92672">:</span> {
+            <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;graphite.dom.tld&#34;</span>,
+            <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2003</span>
+        },
+        <span style="color:#e6db74">&#34;opentsdb&#34;</span><span style="color:#f92672">:</span> {
+            <span style="color:#e6db74">&#34;host&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;tsdb.dom.tld&#34;</span>,
+            <span style="color:#e6db74">&#34;port&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4424</span>
+        }
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>For further information on configuring WizardVan see the <a href="https://github.com/opower/sensu-metrics-relay">README</a>.</p>
 

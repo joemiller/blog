@@ -89,64 +89,61 @@ if (!doNotTrack) {
 
 <p>For example, consider you have a standard set of handlers that you assign to most of your checks &ndash; pagerduty, irc, campfire. Now, suppose you want to add the <a href="https://github.com/sonian/sensu-community-plugins/blob/master/handlers/notification/gelf.rb">GELF</a> ( <a href="http://graylog2.org">graylog2</a>) handler to all of your monitors as well. If each of your checks is defined as such:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;checks&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;all_disk_check&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;notification&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Diskspace Too Low&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_disk -w 25% -c 15% /&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;subscribers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;all&quot;</span><span style="color: #f8f8f2">],</span>
-      <span style="color: #e6db74">&quot;interval&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;pagerduty&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;irc&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;campfire&quot;</span><span style="color: #f8f8f2">]</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;checks&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;all_disk_check&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;notification&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Diskspace Too Low&#34;</span>,
+      <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_disk -w 25% -c 15% /&#34;</span>,
+      <span style="color:#e6db74">&#34;subscribers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;all&#34;</span>],
+      <span style="color:#e6db74">&#34;interval&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span>,
+      <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;pagerduty&#34;</span>, <span style="color:#e6db74">&#34;irc&#34;</span>, <span style="color:#e6db74">&#34;campfire&#34;</span>]
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>&hellip; you would need to modify every check&rsquo;s &ldquo;handlers&rdquo; attribute to include your new &ldquo;gelf&rdquo; handler. If you have a lot of checks this can be a little bit of a burden.</p>
 
 <p>Handler sets save a lot of time in this situation. If you instead define your checks like this:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;checks&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #e6db74">&quot;all_disk_check&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;notification&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Diskspace Too Low&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_disk -w 25% -c 15% /&quot;</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;subscribers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;all&quot;</span><span style="color: #f8f8f2">],</span>
-      <span style="color: #e6db74">&quot;interval&quot;</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">60</span><span style="color: #f8f8f2">,</span>
-      <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;default&quot;</span><span style="color: #f8f8f2">]</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-<span style="color: #f8f8f2">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#e6db74">&#34;checks&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;all_disk_check&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;notification&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Diskspace Too Low&#34;</span>,
+      <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_disk -w 25% -c 15% /&#34;</span>,
+      <span style="color:#e6db74">&#34;subscribers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;all&#34;</span>],
+      <span style="color:#e6db74">&#34;interval&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span>,
+      <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;default&#34;</span>]
+    }
+  }
+}
 </code></pre></div>
-
 
 <p>And then define your handlers on your Sensu server like the following. Notice we have converted the &lsquo;default&rsquo; handler to a set.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-javascript" data-lang="javascript"><span></span><span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #e6db74">&quot;default&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;set&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;handlers&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span><span style="color: #e6db74">&quot;pagerduty&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;irc&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;campfire&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;gelf&quot;</span><span style="color: #f8f8f2">]</span>
-      <span style="color: #f8f8f2">},</span>
-      <span style="color: #e6db74">&quot;pagerduty&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span> 
-        <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/handlers/pagerduty&quot;</span>
-      <span style="color: #f8f8f2">},</span>
-      <span style="color: #e6db74">&quot;irc&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/handlers/irc&quot;</span>
-      <span style="color: #f8f8f2">},</span>
-      <span style="color: #e6db74">&quot;campfire&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/handlers/campfire&quot;</span>
-      <span style="color: #f8f8f2">},</span>
-      <span style="color: #e6db74">&quot;gelf&quot;</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;pipe&quot;</span><span style="color: #f8f8f2">,</span>
-        <span style="color: #e6db74">&quot;command&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/etc/sensu/handlers/gelf.rb&quot;</span>
-      <span style="color: #f8f8f2">}</span>   
-    <span style="color: #f8f8f2">},</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> {
+      <span style="color:#e6db74">&#34;default&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;set&#34;</span>,
+        <span style="color:#e6db74">&#34;handlers&#34;</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;pagerduty&#34;</span>, <span style="color:#e6db74">&#34;irc&#34;</span>, <span style="color:#e6db74">&#34;campfire&#34;</span>, <span style="color:#e6db74">&#34;gelf&#34;</span>]
+      },
+      <span style="color:#e6db74">&#34;pagerduty&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pipe&#34;</span>, 
+        <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/handlers/pagerduty&#34;</span>
+      },
+      <span style="color:#e6db74">&#34;irc&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pipe&#34;</span>,
+        <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/handlers/irc&#34;</span>
+      },
+      <span style="color:#e6db74">&#34;campfire&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pipe&#34;</span>,
+        <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/handlers/campfire&#34;</span>
+      },
+      <span style="color:#e6db74">&#34;gelf&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pipe&#34;</span>,
+        <span style="color:#e6db74">&#34;command&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/etc/sensu/handlers/gelf.rb&#34;</span>
+      }   
+    },
 </code></pre></div>
-
 
 <p>You only need to modify the &ldquo;default&rdquo; handler set to add the new &ldquo;gelf&rdquo; handler and no need to change any of your check definitions.</p>
 

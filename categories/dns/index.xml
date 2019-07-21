@@ -18,7 +18,7 @@
       
       <guid>http://joemiller.me/2010/12/22/dns_compare-py-testing-dns-servers/</guid>
       <description>Sometimes it might be nice to be able to test a DNS server&amp;rsquo;s output, such as with a continuous monitoring system, or as a validation tool when migrating to a different DNS server (or service.)
-$ dns_compare.py -z example.com --file example.com.zone --server 10.1.1.1 ....X...X..done Results: Matches: 9 Mis-matches: 2  To see more examples or download the code, goto: https://github.com/joemiller/dns_compare</description>
+$ dns_compare.py -z example.com --file example.com.zone --server 10.1.1.1 ....X...X..done Results: Matches: 9 Mis-matches: 2 To see more examples or download the code, goto: https://github.com/joemiller/dns_compare</description>
     </item>
     
   </channel>
