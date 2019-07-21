@@ -1,3 +1,5 @@
 public/
 .DS_Store
 TODO.md
+circleci-ssh-push-key
+circleci-ssh-push-key.pub

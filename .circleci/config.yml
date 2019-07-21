@@ -4,8 +4,18 @@ version: 2.1
 orbs:
   hugo: circleci/hugo@0.2
 
+# TODO: pygments
+
 workflows:
   main:
+    # jobs:
+    #   - build
+    #   - deploy:
+    #       requires:
+    #         - build
+    #       filters:
+    #         branches:
+    #           only: master
     jobs:
       - hugo/build:
           version: '0.55'
@@ -17,10 +27,60 @@ workflows:
               only: master
 
 jobs:
+  # build:
+  #   executor:
+  #     name: hugo/cibuilds
+  #     tag: '0.55'
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Checkout Submodules if Needed"
+  #         command: |
+  #           if [ -f ".gitmodules" ]; then
+  #             git submodule sync
+  #             git submodule update --init --recursive
+  #           fi
+  #     - hugo/hugo-build
+  #     - hugo/html-proofer:
+  #         path: ./public
+  #     - persist_to_workspace:
+  #         root: .
+  #         paths:
+  #           - .
+
+#TODO: https://circleci.com/docs/2.0/gh-bb-integration/#creating-a-github-user-key
+
   deploy:
     docker:
       - image: cibuilds/base
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "6b:71:58:9d:56:a2:10:33:62:91:39:29:c6:1d:ed:53"
+      - checkout
+      - run:
+          name: "Mount the 'gh-pages' branch as a worktree at ./public"
+          command: |
+            # TODO: make this a script in the repo instead?
+            set -e
+            rm -rf -- ./public
+            mkdir -p ./public
+            git worktree prune
+            rm -rf -- ./git/worktrees/public/
+            git worktree add -B gh-pages public origin/gh-pages
+            rm -rf ./public/*
+      # attach 'public' dir generated from the build job at ./public:
       - attach_workspace:
-          at: site
-      - run: ls -lah site/public
+          at: .
+      - run:
+          name: "Commit new site content (./public) to 'gh-pages' branch"
+          command: |
+            set -e
+
+            git config --global user.email "joeym@joeym.net"
+            git config --global user.name "joe miller"
+
+            cd public
+            git add --all
+            git commit -m"publish new release, circle build - $CIRCLE_BUILD_NUM"
+            git push origin gh-pages
