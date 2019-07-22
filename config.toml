@@ -5,7 +5,7 @@ theme = "m10c"
 enableRobotsTXT = true
 
 # Google Analytics UA number
-googleAnalytics = "UA-XXXXXXXX-X"
+googleAnalytics = "UA-17214890-1"
 
 # pygmentsUseClasses = true
 #pygmentsUseClassic = true
@@ -34,48 +34,9 @@ pygmentsCodeFences = true
     name = "key"
     url = "https://keybase.io/joemiller"
 
-  # [params.style]
-  #   darkestColor = "#17252a"
-  #   darkColor = "#2b7a78"
-  #   primaryColor = "#3aafa9"
-  #   lightColor = "#def2f1"
-  #   lightestColor = "#feffff"
-
-# last good
   [params.style]
     darkestColor = "#242930"
     darkColor = "#353b43"
     lightColor = "#d5d9e6"
     lightestColor = "#eeeef6"
     primaryColor = "#e8a20c"
-#    primaryColor = "#57cc8a"
-
-  # [params.style]
-  #   darkestColor = "#463625"
-  #   #darkestColor = "#ff0000" # background of left nav bar
-  #   darkColor = "#ffffff"
-  #   primaryColor = "#eeee6a"  # color of the avatar ring
-  #   #lightColor = "#ff0000" # text inside code blocks, also the description in sidebar
-  #   lightColor = "#f6f8fa"
-  #    lightestColor = "#000000"
-  # Brown theme
-  # [params.style]
-  #   darkestColor = "#463625"
-  #   darkColor = "#2a3738"
-  #   primaryColor = "#eeee6a"
-  #   lightColor = "#96a879"
-  #   lightestColor = "#ffffff"
-
-  # Red and black theme
-  # [params.style]
-  #  darkestColor = "#d35050"
-  #  darkColor = "#212121"
-  #  primaryColor = "#ffffff"
-  #  lightColor = "#a2a2a2"
-  #  lightestColor = "#d3d3d3"
-
-# $darkest-color: {{ .Site.Params.style.darkestColor | default "#242930" }};
-# $dark-color: {{ .Site.Params.style.darkColor | default "#353b43" }};
-# $light-color: {{ .Site.Params.style.lightColor | default "#afbac4" }};
-# $lightest-color: {{ .Site.Params.style.lightestColor | default "#ffffff" }};
-# $primary-color: {{ .Site.Params.style.primaryColor | default "#57cc8a" }};
