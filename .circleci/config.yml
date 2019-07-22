@@ -4,8 +4,6 @@ version: 2.1
 orbs:
   hugo: circleci/hugo@0.2
 
-# TODO: pygments
-
 workflows:
   main:
     jobs:

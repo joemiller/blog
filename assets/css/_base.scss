@@ -40,8 +40,9 @@ code {
   font-family: monospace, monospace;
   //  font-size: 1em;
   font-size: 90%;
-  color: rgba($light-color, 0.9);
-  background: $darkest-color;
+  background: #272822; // XXX: this has to match the background used by the chroma theme
+  // background: #2c1f2d; // XXX: this has to match the background used by the chroma theme
+  //background: $darkest-color;
   padding-top: 0.2em;
   padding-right: 0.4em;
   padding-bottom: 0.2em;
@@ -52,11 +53,9 @@ pre {
   // A larger monospaced block of text (that isn't mixed with normal text)
   // generally looks heavier than normal text with the same font size. For this
   // reason using a smaller monospaced font size makes sense in this situation.
-  background: $darkest-color;
+  //background: $darkest-color;
   code {
     font-size: 0.85em;
-    color: rgba($light-color, 0.9);
-    background: $darkest-color;
   }
   overflow: auto;
 }

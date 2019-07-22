@@ -112,7 +112,9 @@ pub   rsa4096 2019-07-13 [C]
 uid        vault-token-helper (github.com/joemiller/vault-token-helper project key) <vault-token-helper@joemiller.me>
 ```
 
-We now have a new master key with only the 'C' (certify) bit set. It can be used to sign subkeys, which we will create next.
+We now have a new master key with only the `[C]` (certify) bit set. It is a special kind of key
+that can only sign sub-keys. We will create a signing sub-key for signing the releases next and
+sign it with the master key.
 
 Export the keyid:
 

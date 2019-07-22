@@ -8,8 +8,8 @@ enableRobotsTXT = true
 googleAnalytics = "UA-XXXXXXXX-X"
 
 # pygmentsUseClasses = true
- pygmentsUseClassic = true
-#pygmentsStyle = "friendly"
+#pygmentsUseClassic = true
+pygmentsStyle = "monokai"
 pygmentsCodeFences = true
 
 [permalinks]
@@ -45,8 +45,8 @@ pygmentsCodeFences = true
   [params.style]
     darkestColor = "#242930"
     darkColor = "#353b43"
-    lightColor = "#dce1f5"
-    lightestColor = "#eeeeee"
+    lightColor = "#e9ebf7"
+    lightestColor = "#eeeef6"
     primaryColor = "#e8a20c"
 #    primaryColor = "#57cc8a"
 
