@@ -1,16 +1,14 @@
 ---
 author: "Joe Miller"
-categories:
-  - devOps
+tags:
   - linux
   - monitoring
   - logging
+  - heroku
+  - logstash
 comments: true
 date: 2014-01-31 11:45:58 -0800
-date_gmt: 2014-01-31 18:45:58 -0800
-published: true
-status: publish
-tags: ["heroku", "logging"]
+draft: false
 title: Heroku log drains into Logstash
 ---
 
@@ -22,7 +20,7 @@ Fortunately there's another option using Heroku's log drain. Setting up a log dr
 
 Hooking up your Heroku-deployed apps to your Logstash/Kibana/Elasticsearch infrastructure is straightforward using the syslog drains provided by Heroku. Here is a recipe for putting the pieces together:
 
-## Install Heroku toolbelt
+# Install Heroku toolbelt
 
 In order to configure a log drain on Heroku you need to install the Heroku toolbelt (or using the API directly). At this time I don't think there's a way to configure log drains from the web UI.
 
@@ -47,7 +45,7 @@ $ heroku logs --app myapp1 -t
 2014-01-31T14:26:27.457415+00:00 heroku[router]: at=info method=GET path=/ping? host=myapp1 request_id=6cb9b9eb-388c-4364-9278-a81179067f21 fwd="50.57.38.1" dyno=web.2 connect=7ms service=6ms status=200 bytes=2
 {{< / highlight >}}
 
-## Configure log drain
+# Configure log drain
 
 Use the Heroku toolbelt to configure a log drain:
 
@@ -57,7 +55,7 @@ $ heroku drains:add --app myapp1 syslog://logstash.dom.tld:1514
 
 Heroku's Logplex system will now send all logs generated from `myapp1` to `logstash.dom.tld:1514` via TCP in syslog RFC-5424 format.
 
-## Configure Logstash
+# Configure Logstash
 
 Next, configure a Logstash input to receive these logs:
 

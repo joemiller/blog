@@ -1,6 +1,6 @@
 ---
 author: "Joe Miller"
-title: "Project GPG key"
+title: "Sign releases with a project GPG key"
 date: 2019-07-20T07:50:48-07:00
 draft: false
 ---

@@ -1,22 +1,13 @@
 ---
 author: "Joe Miller"
-
-
-
-
-
-categories:
-  - software
+draft: true
+tags:
+  - graphite
+  - collectd
+  - metrics
 comments: true
 date: 2011-04-14 11:27:19 -0700
-date_gmt: 2011-04-14 18:27:19 -0700
-published: true
-status: publish
-tags: []
 title: Collectd-Graphite plugin.  Bringing together two great tools
-url: /2011/04/14/collectd-graphite-plugin/
-
-
 ---
 
 [Collectd](http://collectd.org/ "collectd.org") is a powerful tool for gathering metrics using its wide range of plugins, such as cpu, disk, load, memory, etc.  But there is a lack of good frontend tools for visualizing the data collectd produces.

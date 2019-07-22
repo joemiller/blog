@@ -1,24 +1,13 @@
 ---
 author: "Joe Miller"
-
-
-
-
-
-categories:
+tags:
   - software
-  - devOps
   - monitoring
+  - graphite
 comments: true
 date: 2011-09-21 11:34:46 -0700
-date_gmt: 2011-09-21 18:34:46 -0700
 published: true
-status: publish
-tags: []
 title: List of statsd server implementations
-url: /2011/09/21/list-of-statsd-server-implementations/
-
-
 ---
 
 Statsd is a simple client/server mechanism from the folks at Etsy that allows operations and development teams to easily feed a variety of metrics into a Graphite system. For more info on statsd read the seminal blog article on Statsd ["Measure Anything, Measure Everything"](http://codeascraft.etsy.com/2011/02/15/measure-anything-measure-everything/ "Etsy: Measure Anything, Measure Everything").
@@ -50,8 +39,8 @@ I could not find a single resource that listed all of the different implementati
 
 Other interesting statsd-like projects that are not protocol compatible with the original Etsy statsd but may offer compelling features not found in other implementations:
 
-- [estatsd (opscode)](https://github.com/opscode/estatsd "estatsd (opscode)"): Erlang. Inspired by etsy's statsd but not protocol compatible.
-- [estatsd (fauxsoup)](https://github.com/fauxsoup/estatsd "estatsd (fauxsoup)"): Erlang. Fork of opscode's estatsd with a focus on multi-datacenters and high-scalability.
+- [estatsd (opscode)](https://github.com/opscode/estatsd): Erlang. Inspired by etsy's statsd but not protocol compatible.
+- [estatsd (fauxsoup)](https://github.com/fauxsoup/estatsd): Erlang. Fork of opscode's estatsd with a focus on multi-datacenters and high-scalability.
 
 Deprecated:
 
