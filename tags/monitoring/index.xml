@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Joe Miller</title>
-    <link>http://joemiller.me/post/</link>
-    <description>Recent content in Posts on Joe Miller</description>
+    <title>monitoring on Joe Miller</title>
+    <link>http://joemiller.me/tags/monitoring/</link>
+    <description>Recent content in monitoring on Joe Miller</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jul 2019 07:50:48 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jan 2014 11:45:58 -0800</lastBuildDate>
     
-	<atom:link href="http://joemiller.me/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://joemiller.me/tags/monitoring/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Sign releases with a project GPG key</title>
-      <link>http://joemiller.me/2019/07/sign-releases-with-a-project-gpg-key/</link>
-      <pubDate>Sat, 20 Jul 2019 07:50:48 -0700</pubDate>
-      
-      <guid>http://joemiller.me/2019/07/sign-releases-with-a-project-gpg-key/</guid>
-      <description>Intro TODO: intro, rationale, link to the stackoverflow article that sparked the idea
-Create the project master GPG key This guide assumes you have already created a personal GPG key. This is referred to as an &amp;ldquo;author key&amp;rdquo; in this guide and will be used to sign the project key, verifying your relationship to the project.
-List current secret keys (-K /--list-secret-keys):
-$ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ----------------------------- sec rsa4096/ADC517A11EB0B309 2016-02-09 [SC] Key fingerprint = CF5C 5827 E7BD 7059 7992 8EC4 ADC5 17A1 1EB0 B309 uid [ultimate] Joe Miller &amp;lt;joemiller@keybase.</description>
-    </item>
-    
-    <item>
-      <title>Retired Old Blog Posts, Migrated to Hugo and Github Pages</title>
-      <link>http://joemiller.me/2019/07/retired-old-blog-posts-migrated-to-hugo-and-github-pages/</link>
-      <pubDate>Fri, 19 Jul 2019 12:06:47 -0700</pubDate>
-      
-      <guid>http://joemiller.me/2019/07/retired-old-blog-posts-migrated-to-hugo-and-github-pages/</guid>
-      <description>This blog sat idle for 5 years, the last post was 2014. Old posts have been un-published from the site but are still available in the github repo.
-In addition to retiring old posts the blog was migrated from jekyll to hugo. Hosting is now a combination of Github Pages + Cloudflare (previously S3 + Cloudflare). With Circle-CI deploying on master merges.
-There may be a few posts going forward. We&amp;rsquo;ll see.</description>
-    </item>
     
     <item>
       <title>Heroku log drains into Logstash</title>

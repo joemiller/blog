@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>software on Joe Miller</title>
+    <link>http://joemiller.me/tags/software/</link>
+    <description>Recent content in software on Joe Miller</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Sep 2011 11:34:46 -0700</lastBuildDate>
+    
+	<atom:link href="http://joemiller.me/tags/software/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>List of statsd server implementations</title>
+      <link>http://joemiller.me/2011/09/list-of-statsd-server-implementations/</link>
+      <pubDate>Wed, 21 Sep 2011 11:34:46 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2011/09/list-of-statsd-server-implementations/</guid>
+      <description>&lt;p&gt;Statsd is a simple client/server mechanism from the folks at Etsy that allows operations and development teams to easily feed a variety of metrics into a Graphite system. For more info on statsd read the seminal blog article on Statsd &lt;a href=&#34;http://codeascraft.etsy.com/2011/02/15/measure-anything-measure-everything/&#34; title=&#34;Etsy: Measure Anything, Measure Everything&#34;&gt;&amp;ldquo;Measure Anything, Measure Everything&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

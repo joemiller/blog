@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Joe Miller" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://joemiller.me/css/main.min.0458ca72864ad239460367ee126ede06ce52dae0bdeea871db68f2a7d4c03dcf.css" />
+    <link rel="stylesheet" href="http://joemiller.me/css/main.min.f1dfd0c62a48c2c4333e0fd932119a5f3d0e9e50b6eb85e8abf4fa9952e7df51.css" />
 
     
 <script type="application/javascript">
@@ -88,17 +88,14 @@ Fortunately there&rsquo;s another option using Heroku&rsquo;s log drain. Setting
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="http://joemiller.me/tags/heroku/">heroku</a><a class="tag" href="http://joemiller.me/tags/logging/">logging</a></div></div>
+          <a class="tag" href="http://joemiller.me/tags/linux/">linux</a><a class="tag" href="http://joemiller.me/tags/monitoring/">monitoring</a><a class="tag" href="http://joemiller.me/tags/logging/">logging</a><a class="tag" href="http://joemiller.me/tags/heroku/">heroku</a><a class="tag" href="http://joemiller.me/tags/logstash/">logstash</a></div></div>
     </header>
     <nav id="toc">
       <nav id="TableOfContents">
 <ul>
-<li>
-<ul>
 <li><a href="#install-heroku-toolbelt">Install Heroku toolbelt</a></li>
 <li><a href="#configure-log-drain">Configure log drain</a></li>
 <li><a href="#configure-logstash">Configure Logstash</a></li>
-</ul></li>
 </ul>
 </nav>
     </nav>
@@ -109,7 +106,7 @@ Fortunately there&rsquo;s another option using Heroku&rsquo;s log drain. Setting
 
 <p>Hooking up your Heroku-deployed apps to your Logstash/Kibana/Elasticsearch infrastructure is straightforward using the syslog drains provided by Heroku. Here is a recipe for putting the pieces together:</p>
 
-<h2 id="install-heroku-toolbelt">Install Heroku toolbelt</h2>
+<h1 id="install-heroku-toolbelt">Install Heroku toolbelt</h1>
 
 <p>In order to configure a log drain on Heroku you need to install the Heroku toolbelt (or using the API directly). At this time I don&rsquo;t think there&rsquo;s a way to configure log drains from the web UI.</p>
 
@@ -130,7 +127,7 @@ myapp2 email@dom.tld</code></pre></div>
 2014-01-31T14:26:26.753977+00:00 app[web.1]: 2014-01-31T14:26:26.752Z - debug: FETCHING TICKET: 15851
 2014-01-31T14:26:27.457415+00:00 heroku[router]: at=info method=GET path=/ping? host=myapp1 request_id=6cb9b9eb-388c-4364-9278-a81179067f21 fwd=&#34;50.57.38.1&#34; dyno=web.2 connect=7ms service=6ms status=200 bytes=2</code></pre></div>
 
-<h2 id="configure-log-drain">Configure log drain</h2>
+<h1 id="configure-log-drain">Configure log drain</h1>
 
 <p>Use the Heroku toolbelt to configure a log drain:</p>
 
@@ -138,7 +135,7 @@ myapp2 email@dom.tld</code></pre></div>
 
 <p>Heroku&rsquo;s Logplex system will now send all logs generated from <code>myapp1</code> to <code>logstash.dom.tld:1514</code> via TCP in syslog RFC-5424 format.</p>
 
-<h2 id="configure-logstash">Configure Logstash</h2>
+<h1 id="configure-logstash">Configure Logstash</h1>
 
 <p>Next, configure a Logstash input to receive these logs:</p>
 

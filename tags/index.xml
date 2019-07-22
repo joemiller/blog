@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>linux</title>
+      <link>http://joemiller.me/tags/linux/</link>
+      <pubDate>Fri, 31 Jan 2014 11:45:58 -0800</pubDate>
+      
+      <guid>http://joemiller.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>logging</title>
       <link>http://joemiller.me/tags/logging/</link>
       <pubDate>Fri, 31 Jan 2014 11:45:58 -0800</pubDate>
@@ -30,146 +39,38 @@
     </item>
     
     <item>
-      <title>metrics</title>
-      <link>http://joemiller.me/tags/metrics/</link>
-      <pubDate>Sat, 05 Nov 2011 19:09:15 -0700</pubDate>
+      <title>logstash</title>
+      <link>http://joemiller.me/tags/logstash/</link>
+      <pubDate>Fri, 31 Jan 2014 11:45:58 -0800</pubDate>
       
-      <guid>http://joemiller.me/tags/metrics/</guid>
+      <guid>http://joemiller.me/tags/logstash/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>amazon</title>
-      <link>http://joemiller.me/tags/amazon/</link>
-      <pubDate>Mon, 31 Jan 2011 17:34:13 -0800</pubDate>
+      <title>monitoring</title>
+      <link>http://joemiller.me/tags/monitoring/</link>
+      <pubDate>Fri, 31 Jan 2014 11:45:58 -0800</pubDate>
       
-      <guid>http://joemiller.me/tags/amazon/</guid>
+      <guid>http://joemiller.me/tags/monitoring/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>aws</title>
-      <link>http://joemiller.me/tags/aws/</link>
-      <pubDate>Mon, 31 Jan 2011 17:34:13 -0800</pubDate>
+      <title>graphite</title>
+      <link>http://joemiller.me/tags/graphite/</link>
+      <pubDate>Wed, 21 Sep 2011 11:34:46 -0700</pubDate>
       
-      <guid>http://joemiller.me/tags/aws/</guid>
+      <guid>http://joemiller.me/tags/graphite/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>cloudfront</title>
-      <link>http://joemiller.me/tags/cloudfront/</link>
-      <pubDate>Mon, 31 Jan 2011 17:34:13 -0800</pubDate>
+      <title>software</title>
+      <link>http://joemiller.me/tags/software/</link>
+      <pubDate>Wed, 21 Sep 2011 11:34:46 -0700</pubDate>
       
-      <guid>http://joemiller.me/tags/cloudfront/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>private</title>
-      <link>http://joemiller.me/tags/private/</link>
-      <pubDate>Mon, 31 Jan 2011 17:34:13 -0800</pubDate>
-      
-      <guid>http://joemiller.me/tags/private/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>streaming</title>
-      <link>http://joemiller.me/tags/streaming/</link>
-      <pubDate>Mon, 31 Jan 2011 17:34:13 -0800</pubDate>
-      
-      <guid>http://joemiller.me/tags/streaming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>http://joemiller.me/tags/git/</link>
-      <pubDate>Mon, 27 Sep 2010 15:46:37 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gitosis-ng</title>
-      <link>http://joemiller.me/tags/gitosis-ng/</link>
-      <pubDate>Mon, 27 Sep 2010 15:46:37 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/gitosis-ng/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>capistrano</title>
-      <link>http://joemiller.me/tags/capistrano/</link>
-      <pubDate>Mon, 27 Sep 2010 14:33:59 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/capistrano/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>devops</title>
-      <link>http://joemiller.me/tags/devops/</link>
-      <pubDate>Mon, 27 Sep 2010 14:33:59 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/devops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mcollective</title>
-      <link>http://joemiller.me/tags/mcollective/</link>
-      <pubDate>Mon, 27 Sep 2010 14:33:59 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/mcollective/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shellcmd-agent</title>
-      <link>http://joemiller.me/tags/shellcmd-agent/</link>
-      <pubDate>Mon, 27 Sep 2010 14:33:59 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/shellcmd-agent/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dns</title>
-      <link>http://joemiller.me/tags/dns/</link>
-      <pubDate>Tue, 29 Jun 2010 17:24:30 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/dns/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>perl</title>
-      <link>http://joemiller.me/tags/perl/</link>
-      <pubDate>Mon, 21 Jun 2010 19:56:55 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/perl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>php</title>
-      <link>http://joemiller.me/tags/php/</link>
-      <pubDate>Sun, 20 Jun 2010 20:53:39 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/php/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rrdtool</title>
-      <link>http://joemiller.me/tags/rrdtool/</link>
-      <pubDate>Sun, 20 Jun 2010 20:53:39 -0700</pubDate>
-      
-      <guid>http://joemiller.me/tags/rrdtool/</guid>
+      <guid>http://joemiller.me/tags/software/</guid>
       <description></description>
     </item>
     
