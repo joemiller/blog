@@ -9,6 +9,10 @@ workflows:
     jobs:
       - hugo/build:
           version: '0.55'
+          filters:
+            branches:
+              ignore: gh-pages
+
       - deploy:
           requires:
             - hugo/build
