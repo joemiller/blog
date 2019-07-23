@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2011-06-29 16:50:13 -0700
 date_gmt: 2011-06-29 23:50:13 -0700
-published: true
 status: publish
 tags: []
 title: groovy-statsdclient

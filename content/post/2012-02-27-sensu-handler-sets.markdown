@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2012-02-27 11:06:38 -0800
 date_gmt: 2012-02-27 18:06:38 -0800
-published: true
 status: publish
 tags: []
 title: Sensu handler sets

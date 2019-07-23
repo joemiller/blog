@@ -10,7 +10,6 @@ categories:
 comments: true
 date: 2010-06-20 20:53:39 -0700
 date_gmt: 2010-06-21 03:53:39 -0700
-published: true
 status: publish
 tags:
   - php

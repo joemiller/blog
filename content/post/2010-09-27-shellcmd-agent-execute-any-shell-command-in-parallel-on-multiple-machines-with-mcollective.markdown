@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2010-09-27 14:33:59 -0700
 date_gmt: 2010-09-27 21:33:59 -0700
-published: true
 status: publish
 tags:
   - mcollective

@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2011-01-31 17:34:13 -0800
 date_gmt: 2011-02-01 00:34:13 -0800
-published: true
 status: publish
 tags:
   - amazon

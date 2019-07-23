@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2013-06-01 09:15:52 -0700
 date_gmt: 2013-06-01 16:15:52 -0700
-published: true
 status: publish
 tags: []
 title: Sensu Presentation from CentOS Dojo Phoenix

@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2012-02-08 16:30:02 -0800
 date_gmt: 2012-02-08 23:30:02 -0800
-published: true
 status: publish
 tags: []
 title: AMQPcat, a netcat-like tool for messaging fun

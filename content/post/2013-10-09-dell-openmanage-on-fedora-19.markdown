@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2013-10-09 18:15:04 -0700
 date_gmt: 2013-10-10 01:15:04 -0700
-published: true
 status: publish
 tags: []
 title: Dell OpenManage on Fedora 19

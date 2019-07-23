@@ -16,7 +16,6 @@ categories:
 comments: true
 date: 2013-12-07 18:55:11 -0800
 date_gmt: 2013-12-08 01:55:11 -0800
-published: true
 status: publish
 tags: []
 title: Sensu and Graphite, Part 2

@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2011-05-24 12:46:45 -0700
 date_gmt: 2011-05-24 19:46:45 -0700
-published: true
 status: publish
 tags: []
 title: Alternative skins for Skype 5 and 6 on Mac OSX

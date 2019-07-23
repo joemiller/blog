@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2010-09-27 15:46:37 -0700
 date_gmt: 2010-09-27 22:46:37 -0700
-published: true
 status: publish
 tags:
   - gitosis-ng

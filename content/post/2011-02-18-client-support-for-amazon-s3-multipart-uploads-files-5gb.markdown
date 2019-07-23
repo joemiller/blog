@@ -15,7 +15,6 @@ categories:
 comments: true
 date: 2011-02-18 16:07:22 -0800
 date_gmt: 2011-02-18 23:07:22 -0800
-published: true
 status: publish
 tags: []
 title: Client support for Amazon S3 multipart uploads (files >5GB)

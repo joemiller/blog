@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2010-08-31 16:40:48 -0700
 date_gmt: 2010-08-31 23:40:48 -0700
-published: true
 status: publish
 tags: []
 title: Simulate network latency, packet loss, and low bandwidth on Mac OSX

@@ -16,7 +16,6 @@ categories:
 comments: true
 date: 2012-01-19 20:18:25 -0800
 date_gmt: 2012-01-20 03:18:25 -0800
-published: true
 status: publish
 tags: []
 title: Getting started with the Sensu monitoring framework

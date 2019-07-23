@@ -14,7 +14,6 @@ categories:
 comments: true
 date: 2012-04-26 08:15:40 -0700
 date_gmt: 2012-04-26 15:15:40 -0700
-published: true
 status: publish
 tags: []
 title: Speeding up Vagrant with parallel provisioning

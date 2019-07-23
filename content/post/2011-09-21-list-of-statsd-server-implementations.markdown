@@ -6,7 +6,6 @@ tags:
   - graphite
 comments: true
 date: 2011-09-21 11:34:46 -0700
-published: true
 title: List of statsd server implementations
 ---
 

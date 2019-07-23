@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2011-04-24 21:10:45 -0700
 date_gmt: 2011-04-25 04:10:45 -0700
-published: true
 status: publish
 tags: []
 title: Kanbanops - new mailing list

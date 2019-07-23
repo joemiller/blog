@@ -14,7 +14,6 @@ categories:
 comments: true
 date: 2011-06-06 13:58:35 -0700
 date_gmt: 2011-06-06 20:58:35 -0700
-published: true
 status: publish
 tags: []
 title: '#monitoringsucks - but it doesn''t have to'

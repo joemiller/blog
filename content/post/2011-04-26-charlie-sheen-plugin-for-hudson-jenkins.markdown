@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2011-04-26 16:51:03 -0700
 date_gmt: 2011-04-26 23:51:03 -0700
-published: true
 status: publish
 tags: []
 title: Charlie Sheen plugin for the Hudson/Jenkins CI Server

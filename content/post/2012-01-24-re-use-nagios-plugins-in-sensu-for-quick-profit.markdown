@@ -16,7 +16,6 @@ categories:
 comments: true
 date: 2012-01-24 19:22:17 -0800
 date_gmt: 2012-01-25 02:22:17 -0800
-published: true
 status: publish
 tags: []
 title: Re-use Nagios plugins in Sensu for quick profit

@@ -13,7 +13,6 @@ categories:
 comments: true
 date: 2011-11-05 19:09:15 -0700
 date_gmt: 2011-11-06 02:09:15 -0800
-published: true
 status: publish
 tags:
   - metrics

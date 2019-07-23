@@ -12,7 +12,6 @@ categories:
 comments: true
 date: 2010-12-22 19:53:20 -0800
 date_gmt: 2010-12-23 02:53:20 -0800
-published: true
 status: publish
 tags: []
 title: dns_compare.py - testing DNS servers

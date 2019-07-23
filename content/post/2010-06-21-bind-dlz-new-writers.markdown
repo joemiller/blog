@@ -11,7 +11,6 @@ categories:
 comments: true
 date: 2010-06-21 19:56:55 -0700
 date_gmt: 2010-06-22 02:56:55 -0700
-published: true
 status: publish
 tags:
   - dns
