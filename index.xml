@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>Sign releases with a project GPG key</title>
-      <link>http://joemiller.me/2019/07/sign-releases-with-a-project-gpg-key/</link>
+      <title>Signing releases with a project GPG key</title>
+      <link>http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/</link>
       <pubDate>Sat, 20 Jul 2019 07:50:48 -0700</pubDate>
       
-      <guid>http://joemiller.me/2019/07/sign-releases-with-a-project-gpg-key/</guid>
+      <guid>http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/</guid>
       <description>Intro TODO: intro, rationale, link to the stackoverflow article that sparked the idea
 Create the project master GPG key This guide assumes you have already created a personal GPG key. This is referred to as an &amp;ldquo;author key&amp;rdquo; in this guide and will be used to sign the project key, verifying your relationship to the project.
 List current secret keys (-K /--list-secret-keys):
