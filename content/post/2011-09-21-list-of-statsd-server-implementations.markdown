@@ -30,7 +30,7 @@ I could not find a single resource that listed all of the different implementati
 - [estatsd](https://github.com/opscode/estatsd "https://github.com/opscode/estatsd"): erlang. From the folks @ Opscode
 - [metricsd](https://github.com/mojodna/metricsd "https://github.com/mojodna/metricsd"): scala. Should be drop-in compatible with etsy's statsd, but with support for additional metric types (eg: meter, gauge, histogram)
 - [statsd-c](https://github.com/jbuchbinder/statsd-c "statsd-c"): C. compatible with original etsy statsd
-- [statsd (librato)](https://github.com/librato/statsd "statsd (librato)"): node.js.   [Librato's](http://librato.com/ "Librato") officially maintained fork of statsd based on the changes from Engine Yard. Supports multiple graphing services including [Librato Metrics](http://metrics.librato.com "Librato Metrics")
+- [statsd (librato)](https://github.com/librato/statsd): node.js.   [Librato's](http://librato.com/ "Librato") officially maintained fork of statsd based on the changes from Engine Yard. Supports multiple graphing services including [Librato Metrics](http://metrics.librato.com "Librato Metrics")
 - [bucky](https://github.com/cloudant/bucky "bucky"): python. A unique spin on statsd that supports collecting data from statsd clients, collectd, and metricsd, with output to graphite. The ability to translate collectd plugin names to be more graphite-friendly is very compelling.
 - [clj-statsd-svr](https://github.com/netmelody/clj-statsd-svr "clj-statsd-svr"): Clojure.
 - [statsite](https://github.com/armon/statsite "statsite"): C. Statsite is designed to be both highly performant, and very flexible, using libev to be extremely fast.
