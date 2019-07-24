@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Joe Miller" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="http://joemiller.me/css/main.min.da7d4e4777316ee6b2fce4b533abeb067b6f7f779e15e1f1605a016d9129d3c1.css" />
+    <link rel="stylesheet" href="http://joemiller.me/css/main.min.e2fc7605306dcbdb003ad2bc6f46a3612458a8a74e0127bbdf712c49112ff621.css" />
 
     
 <script type="application/javascript">
@@ -25,16 +25,16 @@ if (!doNotTrack) {
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Signing releases with a project GPG key"/>
-<meta name="twitter:description" content="Intro TODO: intro, rationale, link to the stackoverflow article that sparked the idea
-Create the project master GPG key This guide assumes you have already created a personal GPG key. This is referred to as an &ldquo;author key&rdquo; in this guide and will be used to sign the project key, verifying your relationship to the project.
-List current secret keys (-K /--list-secret-keys):
-$ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ----------------------------- sec rsa4096/ADC517A11EB0B309 2016-02-09 [SC] Key fingerprint = CF5C 5827 E7BD 7059 7992 8EC4 ADC5 17A1 1EB0 B309 uid [ultimate] Joe Miller &lt;joemiller@keybase."/>
+<meta name="twitter:description" content="Intro This article presents a step-by-step guide for signing a project&rsquo;s releases with GPG. It came from my own experience of adding GPG-signing support to vault-token-helper.
+Why sign releases? The Apache Foundation has an excellent explanatino already so I&rsquo;ll just borrow theirs: why
+ A signature allows anyone to verify that a file is identical to the one created by the Apache release manager. Using a signature:
+ users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)"/>
 
     <meta property="og:title" content="Signing releases with a project GPG key" />
-<meta property="og:description" content="Intro TODO: intro, rationale, link to the stackoverflow article that sparked the idea
-Create the project master GPG key This guide assumes you have already created a personal GPG key. This is referred to as an &ldquo;author key&rdquo; in this guide and will be used to sign the project key, verifying your relationship to the project.
-List current secret keys (-K /--list-secret-keys):
-$ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ----------------------------- sec rsa4096/ADC517A11EB0B309 2016-02-09 [SC] Key fingerprint = CF5C 5827 E7BD 7059 7992 8EC4 ADC5 17A1 1EB0 B309 uid [ultimate] Joe Miller &lt;joemiller@keybase." />
+<meta property="og:description" content="Intro This article presents a step-by-step guide for signing a project&rsquo;s releases with GPG. It came from my own experience of adding GPG-signing support to vault-token-helper.
+Why sign releases? The Apache Foundation has an excellent explanatino already so I&rsquo;ll just borrow theirs: why
+ A signature allows anyone to verify that a file is identical to the one created by the Apache release manager. Using a signature:
+ users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/" />
 <meta property="article:published_time" content="2019-07-20T07:50:48-07:00"/>
@@ -84,7 +84,7 @@ $ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ---------------------
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          8 min read
         </div></div>
     </header>
     <nav id="toc">
@@ -106,7 +106,30 @@ $ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ---------------------
 
 <h1 id="intro">Intro</h1>
 
-<p><em>TODO: intro, rationale, link to the stackoverflow article that sparked the idea</em></p>
+<p>This article presents a step-by-step guide for signing a project&rsquo;s releases with GPG. It came from my
+own experience of adding GPG-signing support to <a href="https://github.com/joemiller/vault-token-helper">vault-token-helper</a>.</p>
+
+<p>Why sign releases? The Apache Foundation has an excellent explanatino already so I&rsquo;ll just
+borrow theirs: <a href="https://www.apache.org/dev/release-signing.html#motivation">why</a></p>
+
+<blockquote>
+<p>A signature allows anyone to verify that a file is identical to the one created by
+the Apache release manager. Using a signature:</p>
+
+<ul>
+<li><p>users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)</p></li>
+
+<li><p>the Apache infrastructure team can verify the identity of a file</p></li>
+</ul>
+
+<p>OpenPGP signatures confer the usual advantages of digital signatures: authentication, integrity and non-repudiation. MD5 and SHA checksums only provide the integrity part as they are not encrypted</p>
+</blockquote>
+
+<p>If your project happens to be lucky enough to use <a href="https://goreleaser.com/">goreleaser</a> you
+can benefit from its built-in support for <a href="https://goreleaser.com/customization/#Signing">GPG signing</a>.  If you don&rsquo;t use goreleaser it is still fairly straightforward to sign releases.</p>
+
+<p>My initial thought was to create a sub-key for signing a project&rsquo;s releases and then I
+came across this</p>
 
 <h2 id="create-the-project-master-gpg-key">Create the project master GPG key</h2>
 
@@ -114,7 +137,7 @@ $ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ---------------------
 in this guide and will be used to sign the project key, verifying your relationship to the project.</p>
 
 <p>List current secret keys (<code>-K /--list-secret-keys</code>):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K
 
 /Users/joe/.gnupg/pubring.kbx
 -----------------------------
@@ -125,7 +148,7 @@ ssb   rsa2048/3C7B936B8FC96571 2016-02-09 [E] [expires: 2024-02-07]
 ssb   rsa2048/B0FBB6EC7A273832 2016-02-09 [SA] [expires: 2024-02-07]
 ssb   rsa2048/4AE3F48180C87370 2019-07-12 [S]</code></pre></div>
 <p>Generate a new master GPG key. This will be the &ldquo;project key&rdquo;:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gpg --expert --full-generate-key
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ gpg --expert --full-generate-key
 
 Please select what kind of key you want:
    (1) RSA and RSA (default)
@@ -206,7 +229,7 @@ that can only sign sub-keys. We will create a signing sub-key for signing the re
 sign it with the master key.</p>
 
 <p>Export the keyid:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">export KEYID=5EF225507053ACC2728AA51C37F9D1272278CD32</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">export KEYID=5EF225507053ACC2728AA51C37F9D1272278CD32</code></pre></div>
 <h2 id="create-a-signing-sub-key">Create a signing sub-key</h2>
 
 <p>Now that we have established a new master key for the project we will create a sub-key that
@@ -215,9 +238,9 @@ master key safely offline. The sub-key can be deployed to your CI/CD pipeline. I
 it can be revoked by the master key and replaced with a new sub-key.</p>
 
 <p>Edit the master key:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --expert --edit-key $KEYID</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --expert --edit-key $KEYID</code></pre></div>
 <p>Create a signing key by selecting <code>(4) RSA (sign only):</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg&gt; addkey
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg&gt; addkey
 
 Please select what kind of key you want:
    (3) DSA (sign only)
@@ -256,9 +279,9 @@ ssb  rsa4096/6720A9FD78AC13F5
      created: 2019-07-13  expires: never       usage: S
 [ultimate] (1). vault-token-helper (github.com/joemiller/vault-token-helper project key) &lt;vault-token-helper@joemiller.me&gt;</code></pre></div>
 <p>Save and exit:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg&gt; save</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg&gt; save</code></pre></div>
 <p>List secret keys. There are now two keys, our author key and a new project key:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K
 
 sec   rsa4096/ADC517A11EB0B309 2016-02-09 [SC]
       Key fingerprint = CF5C 5827 E7BD 7059 7992  8EC4 ADC5 17A1 1EB0 B309
@@ -272,28 +295,28 @@ sec   rsa4096/37F9D1272278CD32 2019-07-13 [C]
 uid         [ultimate] vault-token-helper (github.com/joemiller/vault-token-helper project key) &lt;vault-token-helper@joemiller.me&gt;
 ssb   rsa4096/6720A9FD78AC13F5 2019-07-13 [S]</code></pre></div>
 <p>Sign the project key with your author key:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --sign-key $KEYID</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --sign-key $KEYID</code></pre></div>
 <p>Publish the project key to the key server network. This allows others to easily download
 the project&rsquo;s public key to verify releases:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --send-key $KEYID</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --send-key $KEYID</code></pre></div>
 <h2 id="prepare-keys-for-ci-cd">Prepare keys for CI/CD</h2>
 
 <p>Now that we have created our project key and a sub-key for signing we will export the
 sub-key and base64 encode it for use in our CI/CD system.</p>
 
 <p>List the master and sub-key ID&rsquo;s:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K $KEYID
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ gpg --keyid-format long -K $KEYID
 
 sec   rsa4096/37F9D1272278CD32 2019-07-13 [C]
       Key fingerprint = 5EF2 2550 7053 ACC2 728A  A51C 37F9 D127 2278 CD32
 uid            [ultimate] vault-token-helper (github.com/joemiller/vault-token-helper project key) &lt;vault-token-helper@joemiller.me&gt;
 ssb   rsa4096/6720A9FD78AC13F5 2019-07-13 [S]</code></pre></div>
 <p>Export the sub-key ID:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">export SUBKEY=6720A9FD78AC13F5</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">export SUBKEY=6720A9FD78AC13F5</code></pre></div>
 <p>Export the sub-key - and <strong>ONLY</strong> the sub-key. The <code>!</code> is important for exporting only the sub-key:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --armor --export-secret-subkeys $SUBKEY\! &gt;vault-token-helper.signing-key.gpg</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --armor --export-secret-subkeys $SUBKEY\! &gt;vault-token-helper.signing-key.gpg</code></pre></div>
 <p>Base64 encode the signing-key and copy it into your clipboard. <code>pbcopy</code> copies stdin to the clipboard on macOS:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">cat vault-token-helper.signing-key.gpg | base64 | pbcopy</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">cat vault-token-helper.signing-key.gpg | base64 | pbcopy</code></pre></div>
 <p>Create an environment variable <code>GPG_KEY</code> in your CI system using the base64 encoded copy of the signing key as the contents.</p>
 
 <h2 id="take-the-master-key-offline">Take the master key offline</h2>
@@ -305,19 +328,19 @@ wish.</p>
 
 <p>Make a backup of the master key and sub-key. This should be saved in a safe offline space
 such as an encrypted USB key.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --armor --export-secret-keys $KEYID  &gt;vault-token-helper.gpg</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --armor --export-secret-keys $KEYID  &gt;vault-token-helper.gpg</code></pre></div>
 <p>Delete the master key from your keychain:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --delete-secret-keys $KEYID</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --delete-secret-keys $KEYID</code></pre></div>
 <p>In the future you will need access to the master key such as to add new sub-keys, revoke
 existing sub-keys, etc. To do so import the master key from the backup:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">gpg --import vault-token-helper.gpg</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">gpg --import vault-token-helper.gpg</code></pre></div>
 <h2 id="test-sign-with-goreleaser">Test sign with goreleaser</h2>
 
 <p><em>TODO: need to do something better with this section.. maybe show circleci example.. or at least</em>
    <em>show running goreleaser config snippet and running without make file</em></p>
 
 <p>Testing the release and sign process:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">$ GPG_KEY=&#34;$(cat vault-token-helper.signing-key.gpg | base64)&#34; make snapshot
+<div class="highlight"><pre class="chroma"><code class="language-console" data-lang="console">$ GPG_KEY=&#34;$(cat vault-token-helper.signing-key.gpg | base64)&#34; make snapshot
 
 $ ll dist/*checksum*
 

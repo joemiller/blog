@@ -17,10 +17,10 @@
       <pubDate>Sat, 20 Jul 2019 07:50:48 -0700</pubDate>
       
       <guid>http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/</guid>
-      <description>Intro TODO: intro, rationale, link to the stackoverflow article that sparked the idea
-Create the project master GPG key This guide assumes you have already created a personal GPG key. This is referred to as an &amp;ldquo;author key&amp;rdquo; in this guide and will be used to sign the project key, verifying your relationship to the project.
-List current secret keys (-K /--list-secret-keys):
-$ gpg --keyid-format long -K /Users/joe/.gnupg/pubring.kbx ----------------------------- sec rsa4096/ADC517A11EB0B309 2016-02-09 [SC] Key fingerprint = CF5C 5827 E7BD 7059 7992 8EC4 ADC5 17A1 1EB0 B309 uid [ultimate] Joe Miller &amp;lt;joemiller@keybase.</description>
+      <description>Intro This article presents a step-by-step guide for signing a project&amp;rsquo;s releases with GPG. It came from my own experience of adding GPG-signing support to vault-token-helper.
+Why sign releases? The Apache Foundation has an excellent explanatino already so I&amp;rsquo;ll just borrow theirs: why
+ A signature allows anyone to verify that a file is identical to the one created by the Apache release manager. Using a signature:
+ users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)</description>
     </item>
     
     <item>
