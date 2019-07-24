@@ -17,15 +17,3 @@ There may be a few posts going forward. We'll see. I might just get
 bored of it again. Part of the switch from jekyll to hugo was to simplify
 the process of managing the site and making it more likely I'll actually
 do something on it.
-
-```go
-func foo() error {
-  log.Println("foobar")
-}
-```
-
-```python
-def foo():
-  print(blah)
-  print('foo')
-```
