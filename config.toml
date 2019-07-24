@@ -7,10 +7,11 @@ enableRobotsTXT = true
 # Google Analytics UA number
 googleAnalytics = "UA-17214890-1"
 
-# pygmentsUseClasses = true
+pygmentsUseClasses = true
 #pygmentsUseClassic = true
-pygmentsStyle = "monokai"
+#pygmentsStyle = "monokai"
 pygmentsCodeFences = true
+pygmentsCodeFencesGuessSyntax = true
 
 [permalinks]
   post = "/:year/:month/:title/"

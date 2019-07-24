@@ -8,7 +8,25 @@ draft: false
 Intro
 =====
 
-*TODO: intro, rationale, link to the stackoverflow article that sparked the idea*
+This article explains how to create a "project GPG key" for signing a project's releases. The
+Apache Foundation explains [why](https://www.apache.org/dev/release-signing.html#motivation)
+we want to sign releases:
+
+> A signature allows anyone to verify that a file is identical to the one created by
+> the Apache release manager. Using a signature:
+>
+> * users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)
+>
+> * the Apache infrastructure team can verify the identity of a file
+>
+> OpenPGP signatures confer the usual advantages of digital signatures: authentication, integrity and non-repudiation. MD5 and SHA checksums only provide the integrity part as they are not encrypted
+>
+
+Also [goreleaser](TODO) makes it easy to sign releases
+if you're working with a Go project.
+
+My initial thought was to create a sub-key for signing a project's releases and then I
+came across this 
 
 Create the project master GPG key
 ---------------------------------

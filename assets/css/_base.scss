@@ -3,7 +3,7 @@
 }
 
 html {
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 body {
@@ -38,6 +38,7 @@ p {
     font-family: monospace, monospace;
     //  font-size: 1em;
     font-size: 90%;
+    color: $primary-color;
     background: $darkest-color;
     padding-top: 0.2em;
     padding-right: 0.4em;
@@ -53,6 +54,18 @@ pre {
     font-size: 0.9em;
   }
   overflow: auto;
+}
+
+blockquote {
+  color: rgba($light-color, 0.8);
+  border-left: 0.2em solid rgba($primary-color, 0.8);
+  padding-left: 1em;
+  // padding: 1em;
+  // background: $darkest-color;
+  // padding-top: 0.2em;
+  // padding-right: 0.4em;
+  // padding-bottom: 0.2em;
+  // padding-left: 0.4em;
 }
 
 ::selection {
