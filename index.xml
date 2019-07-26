@@ -6,22 +6,10 @@
     <description>Recent content on Joe Miller</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jul 2019 07:50:48 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jul 2019 12:06:47 -0700</lastBuildDate>
     
 	<atom:link href="http://joemiller.me/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Signing releases with a project GPG key</title>
-      <link>http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/</link>
-      <pubDate>Sat, 20 Jul 2019 07:50:48 -0700</pubDate>
-      
-      <guid>http://joemiller.me/2019/07/signing-releases-with-a-project-gpg-key/</guid>
-      <description>Intro This article presents a step-by-step guide for signing a project&amp;rsquo;s releases with GPG. It came from my own experience of adding GPG-signing support to vault-token-helper.
-Why sign releases? The Apache Foundation has an excellent explanatino already so I&amp;rsquo;ll just borrow theirs: why
- A signature allows anyone to verify that a file is identical to the one created by the Apache release manager. Using a signature:
- users can make sure that what they received has not been modified in any way, either accidentally via a faulty transmission channel, or intentionally (with or without malicious intent)</description>
-    </item>
     
     <item>
       <title>Retired Old Blog Posts, Migrated to Hugo and Github Pages</title>
