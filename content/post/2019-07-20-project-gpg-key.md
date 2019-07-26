@@ -2,7 +2,7 @@
 author: "Joe Miller"
 title: "Signing releases with a project GPG key"
 date: 2019-07-20T07:50:48-07:00
-draft: false
+draft: true
 ---
 
 Intro
@@ -11,8 +11,9 @@ Intro
 This article presents a step-by-step guide for signing a project's releases with GPG. It came from my
 own experience of adding GPG-signing support to [vault-token-helper](https://github.com/joemiller/vault-token-helper).
 
-Why sign releases? The Apache Foundation has an excellent explanatino already so I'll just
-borrow theirs: [why](https://www.apache.org/dev/release-signing.html#motivation)
+Why sign releases? The Apache Foundation has an guide
+[rationale](https://www.apache.org/dev/release-signing.html) already so I'll just
+borrow their rationale:
 
 > A signature allows anyone to verify that a file is identical to the one created by
 > the Apache release manager. Using a signature:
