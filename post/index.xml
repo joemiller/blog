@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Joe Miller</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jul 2019 12:06:47 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jul 2019 07:50:48 -0700</lastBuildDate>
     
 	<atom:link href="http://joemiller.me/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Signing releases with a GPG project key</title>
+      <link>http://joemiller.me/2019/07/signing-releases-with-a-gpg-project-key/</link>
+      <pubDate>Sat, 20 Jul 2019 07:50:48 -0700</pubDate>
+      
+      <guid>http://joemiller.me/2019/07/signing-releases-with-a-gpg-project-key/</guid>
+      <description>Intro This article presents a step-by-step guide for signing a project&amp;rsquo;s releases with GPG. It came from my own experiences adding GPG-signing support to vault-token-helper.
+My initial thought was to create a signing sub-key from my own personal GPG key and then I came across this much better idea from a StackExchange post:
+ As an alternative, you might want to consider creating a project key which you sign with your own key.</description>
+    </item>
     
     <item>
       <title>Retired Old Blog Posts, Migrated to Hugo and Github Pages</title>

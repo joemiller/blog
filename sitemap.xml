@@ -4,14 +4,19 @@
   
   <url>
     <loc>http://joemiller.me/</loc>
-    <lastmod>2019-07-19T12:06:47-07:00</lastmod>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://joemiller.me/post/</loc>
-    <lastmod>2019-07-19T12:06:47-07:00</lastmod>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://joemiller.me/2019/07/signing-releases-with-a-gpg-project-key/</loc>
+    <lastmod>2019-07-20T07:50:48-07:00</lastmod>
   </url>
   
   <url>
