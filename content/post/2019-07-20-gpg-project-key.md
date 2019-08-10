@@ -1,15 +1,24 @@
 ---
 author: "Joe Miller"
-title: "Signing releases with a project GPG key"
+title: "Signing releases with a GPG project key"
 date: 2019-07-20T07:50:48-07:00
-draft: true
+draft: false
 ---
 
 Intro
 =====
 
 This article presents a step-by-step guide for signing a project's releases with GPG. It came from my
-own experience of adding GPG-signing support to [vault-token-helper](https://github.com/joemiller/vault-token-helper).
+own experiences adding GPG-signing support to [vault-token-helper](https://github.com/joemiller/vault-token-helper).
+
+My initial thought was to create a signing sub-key from my own personal GPG key and then I came across this much better idea from
+a StackExchange [post](https://superuser.com/a/880065/268165):
+
+> As an alternative, you might want to consider creating a project key which you sign with your own key. This might have the
+> advantage that other contributors/users could also sign the key (and thus certify that this indeed is the key used for the
+> project), and handing over the project might be easier in case somebody else will take over maintenance.
+
+Great idea! I'll explain how to create a "project key" in this post.
 
 Why sign releases? The Apache Foundation has an guide
 [rationale](https://www.apache.org/dev/release-signing.html) already so I'll just
@@ -28,11 +37,14 @@ borrow their rationale:
 If your project happens to be lucky enough to use [goreleaser](https://goreleaser.com/) you
 can benefit from its built-in support for [GPG signing](https://goreleaser.com/customization/#Signing).  If you don't use goreleaser it is still fairly straightforward to sign releases.
 
-My initial thought was to create a sub-key for signing a project's releases and then I
-came across this 
+Creating the project key
+========================
 
-Create the project master GPG key
----------------------------------
+First we will create a new GPG master key. After that we will create a sub-key that will
+be used for signing releases.
+
+Master key
+----------
 
 This guide assumes you have already created a personal GPG key. This is referred to as an "author key"
 in this guide and will be used to sign the project key, verifying your relationship to the project.
@@ -133,8 +145,8 @@ pub   rsa4096 2019-07-13 [C]
 uid        vault-token-helper (github.com/joemiller/vault-token-helper project key) <vault-token-helper@joemiller.me>
 ```
 
-We now have a new master key with only the `[C]` (certify) bit set. It is a special kind of key
-that can only sign sub-keys. We will create a signing sub-key for signing the releases next and
+We now have a new master key with only the `[C]` (certify) bit set. This is a type of signing key
+that signs sub-keys. We will create a signing sub-key for signing the releases next and
 sign it with the master key.
 
 Export the keyid:
@@ -143,8 +155,8 @@ Export the keyid:
 export KEYID=5EF225507053ACC2728AA51C37F9D1272278CD32
 ```
 
-Create a signing sub-key
-------------------------
+Signing sub-key
+---------------
 
 Now that we have established a new master key for the project we will create a sub-key that
 will be used for signing releases. By creating a sub-key for signing we are able to keep the
@@ -237,11 +249,13 @@ the project's public key to verify releases:
 gpg --send-key $KEYID
 ```
 
-Prepare keys for CI/CD
-----------------------
+Signing releases
+================
 
 Now that we have created our project key and a sub-key for signing we will export the
-sub-key and base64 encode it for use in our CI/CD system.
+sub-key for use in our CI/CD system. Only the sub-key will be deployed to our CI/CD
+system while the master will be kept offline. If the sub-key is
+compromised we can use the master key to revoke it and create a new one.
 
 List the master and sub-key ID's:
 
@@ -266,7 +280,52 @@ Export the sub-key - and **ONLY** the sub-key. The `!` is important for exportin
 gpg --armor --export-secret-subkeys $SUBKEY\! >vault-token-helper.signing-key.gpg
 ```
 
-Base64 encode the signing-key and copy it into your clipboard. `pbcopy` copies stdin to the clipboard on macOS:
+Testing: Build and sign a local snapshot release
+------------------------------------------------
+
+Add the following in `.goreleaser.yaml` to enable signing of the checksum file. You could also
+sign each artifact but signing the checksum file is sufficient:
+
+```yaml
+# GPG signing
+sign:
+  artifacts: checksum
+```
+
+Run the following to create a temporary GPG keyring directory and import the signing key:
+
+```console
+GNUPGHOME="$PWD/releaser-gpg"
+export GNUPGHOME
+mkdir -p "$GNUPGHOME"
+chmod 0700 "$GNUPGHOME"
+
+cat vault-token-helper.signing-key.gpg | gpg --batch --allow-secret-key-import --import
+```
+
+Run `goreleaser` in snapshot mode:
+
+```console
+goreleaser --rm-dist --snapshot
+```
+
+Cleanup the temporary GPG key chain when finished:
+
+```console
+rm -rf $GNUPGHOME
+unset GNUPGHOME
+```
+
+CI/CD
+-----
+
+Incorporating signing into your CI/CD pipeline will vary slighty depending on the CI system
+but the steps are generally similar to the test signing above.
+
+### Circle-CI
+
+Store the signing sub-key base64 encoded as an environment variable and then restore it
+before executing `goreleaser`.
 
 ```console
 cat vault-token-helper.signing-key.gpg | base64 | pbcopy
@@ -274,8 +333,41 @@ cat vault-token-helper.signing-key.gpg | base64 | pbcopy
 
 Create an environment variable `GPG_KEY` in your CI system using the base64 encoded copy of the signing key as the contents.
 
-Take the master key offline
----------------------------
+Make a `release.sh` script, Makefile task, or add a step into your `.circleci/config.yml`:
+
+```yaml
+   release:
+     docker:
+       - image: circleci/golang:1.11
+      steps:
+         - run:
+           name: Setup GPG signing key
+           command: |
+               GNUPGHOME="$PWD/releaser-gpg"
+               export GNUPGHOME
+               mkdir -p "$GNUPGHOME"
+               chmod 0700 "$GNUPGHOME"
+
+                 echo "$GPG_KEY" \
+                  | base64 --decode --ignore-garbage \
+                  | gpg --batch --allow-secret-key-import --import
+
+               gpg --keyid-format LONG --list-secret-keys
+         - run: curl -sL https://git.io/goreleaser | bash -s -- --parallelism=2
+```
+
+### Azure DevOps Pipelines
+
+See my [vault-token-helper](https://github.com/joemiller/vault-token-helper) repo for an
+example of intgrating signing in Azure DevOps Pipelines. This is a more complex example due
+to the project requiring a specialized cross-build environment but the overall mechanics
+are the same.
+
+One major difference is that the base64 encoded GPG key is stored
+using Azure's secure files mechanism because environment variables are limited to 4KB.
+
+Offline the master key
+======================
 
 This step is optional but it increases the security of the project master key. In this stage
 we will delete the master key from our keychain and leave only the signing sub-key. This will
@@ -300,29 +392,4 @@ existing sub-keys, etc. To do so import the master key from the backup:
 
 ```console
 gpg --import vault-token-helper.gpg
-```
-
-Test sign with goreleaser
--------------------------
-
-*TODO: need to do something better with this section.. maybe show circleci example.. or at least*
-   *show running goreleaser config snippet and running without make file*
-
-Testing the release and sign process:
-
-```console
-$ GPG_KEY="$(cat vault-token-helper.signing-key.gpg | base64)" make snapshot
-
-$ ll dist/*checksum*
-
--r--r--r--  1 joe  staff   943B Jul 13 17:03 dist/vault-token-helper_SNAPSHOT-64a3f96_checksums.txt
--rw-r--r--  1 joe  staff   566B Jul 13 17:03 dist/vault-token-helper_SNAPSHOT-64a3f96_checksums.txt.sig
-
-$ gpg --verify dist/vault-token-helper_SNAPSHOT-64a3f96_checksums.txt.sig dist/vault-token-helper_SNAPSHOT-64a3f96_checksums.txt
-
-gpg: Signature made Sat Jul 13 17:03:05 2019 PDT
-gpg:                using RSA key F2B849E45FBA0CBFA0ECC9F36720A9FD78AC13F5
-gpg: Good signature from "vault-token-helper (github.com/joemiller/vault-token-helper project key) <vault-token-helper@joemiller.me>" [ultimate]
-Primary key fingerprint: 5EF2 2550 7053 ACC2 728A  A51C 37F9 D127 2278 CD32
-     Subkey fingerprint: F2B8 49E4 5FBA 0CBF A0EC  C9F3 6720 A9FD 78AC 13F5
 ```
